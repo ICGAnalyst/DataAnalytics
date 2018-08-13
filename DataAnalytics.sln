@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2035
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAnalytics", "DataAnalytics\DataAnalytics.csproj", "{03C334FA-9266-481D-A617-13283042CE93}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAnalytics.Tests", "DataAnalytics.Tests\DataAnalytics.Tests.csproj", "{8E72CA22-7712-4F83-837B-4712C317DAC8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{03C334FA-9266-481D-A617-13283042CE93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03C334FA-9266-481D-A617-13283042CE93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03C334FA-9266-481D-A617-13283042CE93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03C334FA-9266-481D-A617-13283042CE93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E72CA22-7712-4F83-837B-4712C317DAC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E72CA22-7712-4F83-837B-4712C317DAC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E72CA22-7712-4F83-837B-4712C317DAC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E72CA22-7712-4F83-837B-4712C317DAC8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {49A56F75-C964-4D25-AF74-029D3545FDC3}
+	EndGlobalSection
+EndGlobal

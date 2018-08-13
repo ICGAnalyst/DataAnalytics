@@ -1,0 +1,375 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Security</title>
+    <link rel="stylesheet" href="https://apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
+    <script src="https://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css" />
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
+
+    <style>
+        #ui-datepicker-div {
+            width: 200px;
+        }
+
+        .ui-datepicker table {
+            font-size: .7em;
+        }
+
+        .ui-datepicker .ui-datepicker-title select {
+            font-size: .7em;
+        }
+
+        .button {
+            background-color: #2776f2;
+            border: none;
+            color: white;
+            padding: 10px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 12px;
+        }
+
+        .button1 {
+            background-color: #2776f2;
+            border: none;
+            border-color: #a76cea;
+            color: white;
+            padding: 7px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 12px;
+        }
+
+        .input {
+            padding: 10px 300px;
+        }
+
+        .menu-bar {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            border: 1px solid #e7e7e7;
+            background-color: #f3f3f3;
+        }
+
+            .menu-bar li {
+                float: left;
+            }
+
+                .menu-bar li a {
+                    display: block;
+                    color: #666;
+                    text-align: center;
+                    padding: 14px 16px;
+                    text-decoration: none;
+                }
+
+                    .menu-bar li a:hover:not(.active) {
+                        background-color: #ddd;
+                    }
+
+                    .menu-bar li a.active {
+                        color: white;
+                        background-color: #4CAF50;
+                    }
+
+        #dropdown {
+            width: 200px;
+            position: relative;
+            float: left
+        }
+
+            #dropdown p {
+                width: 190px;
+                height: 24px;
+                line-height: 24px;
+                padding-left: 10px;
+                border: 1px solid #a9c9e2;
+                background: #e8f5fe url(arrow.gif) no-repeat right 4px;
+                color: #807a62;
+                cursor: pointer;
+                margin: 0;
+                margin-left: 20px;
+            }
+
+            #dropdown ul {
+                width: 200px;
+                background: #e8f5fe;
+                margin-top: 2px;
+                border: 1px solid #a9c9e2;
+                position: absolute;
+                display: none;
+                padding: 0;
+                list-style: none;
+                margin-left: 20px;
+            }
+
+                #dropdown ul li {
+                    height: 24px;
+                    line-height: 24px;
+                    text-indent: 10px
+                }
+
+                    #dropdown ul li a {
+                        display: block;
+                        height: 24px;
+                        color: #807a62;
+                        text-decoration: none
+                    }
+
+                        #dropdown ul li a:hover {
+                            background: #c6dbfc;
+                            color: #369
+                        }
+
+        #frequency {
+            width: 200px;
+            position: relative;
+            float: left
+        }
+
+            #frequency p {
+                width: 190px;
+                height: 24px;
+                line-height: 24px;
+                padding-left: 10px;
+                border: 1px solid #a9c9e2;
+                background: #e8f5fe url(arrow.gif) no-repeat right 4px;
+                color: #807a62;
+                cursor: pointer;
+                margin: 0;
+                margin-left: 40px;
+            }
+
+            #frequency ul {
+                width: 200px;
+                background: #e8f5fe;
+                margin-top: 2px;
+                border: 1px solid #a9c9e2;
+                position: absolute;
+                display: none;
+                padding: 0;
+                list-style: none;
+                margin-left: 40px;
+            }
+
+                #frequency ul li {
+                    height: 24px;
+                    line-height: 24px;
+                    text-indent: 10px
+                }
+
+                    #frequency ul li a {
+                        display: block;
+                        height: 24px;
+                        color: #807a62;
+                        text-decoration: none
+                    }
+
+                        #frequency ul li a:hover {
+                            background: #c6dbfc;
+                            color: #369
+                        }
+
+        .search-drop-box {
+            position: relative;
+            z-index: 100;
+        }
+
+            .search-drop-box ul {
+                border: solid 1px blue;
+            }
+
+                .search-drop-box ul li {
+                    list-style: none;
+                }
+    </style>
+</head>
+<body>
+    <div style="padding:30px ">
+        <div style="float:left;">Logo</div>
+        <div style="float:left;">
+            <input id="searchsymbol" type="text" class="input" onfocus="this.value=''" value="Please input..." />
+            <div class="search-drop-box" style="display:none">
+                <ul>
+                    <li>1</li>
+                    <li>2</li>
+                    <li>3</li>
+                </ul>
+            </div>
+        </div>
+        <button id="search" type="button" class="button">search</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="sign" type="button" class="button1">sign in</button>
+
+    </div>
+    <div class="stock-Infro"></div>
+    <div style="position:absolute">
+        <ul class="menu-bar">
+            <li><a class="active" href="#home">Summary</a></li>
+            <li><a href="#news">Chart</a></li>
+            <li><a href="#contact">History Data</a></li>
+        </ul>
+    </div>
+    <div style="position: absolute;top:160px;">
+        <div class="calendar" style="float:left">
+            <label for="from">From</label>
+            <input type="text" id="from" name="from">
+            <label for="to">To</label>
+            <input type="text" id="to" name="to">
+        </div>
+        <!--
+            <div id="dropdown">
+                <p>History prices</p>
+                <ul>
+                    <li><a href="#" rel="1">History prices</a></li>
+                    <li><a href="#" rel="2">Dividends only</a></li>
+                    <li><a href="#" rel="3">Stock splits</a></li>
+                </ul>
+            </div>
+            <div id="frequency">
+                    <p>Daily</p>
+                    <ul>
+                        <li><a href="#" rel="1">Daily</a></li>
+                        <li><a href="#" rel="2">Weekly</a></li>
+                        <li><a href="#" rel="3">Monthly</a></li>
+                    </ul>
+            </div>
+        -->
+        <button class="apply" style="margin-left:60px;padding-bottom: 5px;padding-top: 2px;">Apply</button>
+    </div>
+    
+    <div style="margin-top:100px">
+        <table id="historyDataTable" class="display"></table>
+    </div>
+        <script>
+            $(function () {
+                'user strict';
+
+                $("#from").datepicker({
+                    defaultDate: "+1w",
+                    changeMonth: true,
+                    changeYear: true,
+                    onClose: function (selectedDate) {
+                        $("#to").datepicker("option", "minDate", selectedDate);
+                        $("#from").datepicker("option", "dateFormat", "yy-mm-dd");
+                    }
+                });
+                $("#to").datepicker({
+                    defaultDate: "+1w",
+                    changeMonth: true,
+                    changeYear: true,
+                    onClose: function (selectedDate) {
+                        $("#from").datepicker("option", "maxDate", selectedDate);
+                        $("#to").datepicker("option", "dateFormat", "yy-mm-dd");
+                    }
+                });
+                /*
+                $("#dropdown p").click(function(){
+                    var ul = $("#dropdown ul");
+                    if(ul.css("display")=="none"){
+                        ul.slideDown("fast");
+                    }else{
+                        ul.slideUp("fast");
+                    }
+                });
+                $("#dropdown ul li a").click(function(){
+                    var txt = $(this).text();
+                    $("#dropdown p").html(txt);
+                    var value = $(this).attr("rel");
+                    $("#dropdown ul").hide();
+                });
+                $("#frequency p").click(function(){
+                    var ul = $("#frequency ul");
+                    if(ul.css("display")=="none"){
+                        ul.slideDown("fast");
+                    }else{
+                        ul.slideUp("fast");
+                    }
+                });
+                $("#frequency ul li a").click(function(){
+                    var txt = $(this).text();
+                    $("#frequency p").html(txt);
+                    var value = $(this).attr("rel");
+                    $("#frequency ul").hide();
+                });
+                */
+                $("#searchsymbol").bind("keypress", function (event) {
+                    if (event.keyCode == '13') {
+                        var txt = $(this).val();
+                        $(".stock-Infro").html(txt);
+                        //$(this).val("");
+                    }
+                });
+
+                $("#search").on("click", function (event) {
+                    var symbolKey = $("#searchsymbol").val();
+                    var fromDate = 20160104; //The min date
+                    var toDate = 20160324; // The Max date
+                    getHistoryData(symbolKey, fromDate, toDate);
+                });
+
+                $("button.apply").on("click", function (event) {
+                    var symbolKey = $("#searchsymbol").val();
+                    var fromDate = $("#from").val().replace(/-/g, "");
+                    var toDate = $("#to").val().replace(/-/g, "");
+                    //console.log(fromDate);
+                    //console.log(toDate);
+                    getHistoryData(symbolKey, fromDate, toDate);
+                });
+                
+                var showHistoryData = function (historydata) {
+                    $("#historyDataTable").DataTable({
+                        data: historydata,
+                        "columns": [
+                            { "data": "Date" },
+                            { "data": "Open" },
+                            { "data": "High" },
+                            { "data": "Low" },
+                            { "data": "Close" },
+                            { "data": "Volume" }
+                        ]
+                    });
+                };
+                var getHistoryData = function (symbolKey, fromDate, toDate) {
+                    $.ajax({
+                        url: "/Historic/GetHisToricData",
+                        type: "POST",
+                        data: {
+                            symbolKey: symbolKey,
+                            fromDate: fromDate,
+                            toDate: toDate
+                        },
+                        dataType: "json",
+                        crossDomain: true,
+                        success: function (response) {
+                            response = response[0];
+                            if (response.success == '1') {
+                                showHistoryData(response.data);
+                            } else {
+                                alert("Unknown error")
+                            }
+                            
+                        }
+                    });
+                };
+            })
+
+
+        </script>
+</body>
+</html>
+

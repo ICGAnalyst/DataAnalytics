@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DataAnalytics" Class="DBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=DataAnalytics;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="DataAnalyticsConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.AggsByHour" Member="AggsByHour">
+    <Type Name="AggsByHour">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="symbolID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Date" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Time" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[Open]" Member="Open" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="High" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Low" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="[Close]" Member="Close" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Volume" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="SplitFactor" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="Earnings" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Dividends" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.symbols" Member="symbols">
+    <Type Name="symbols">
+      <Column Name="symbolID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="symbol" Type="System.String" DbType="VarChar(99)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.stageTwo_AllFileData" Member="stageTwo_AllFileData">
+    <Type Name="stageTwo_AllFileData">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="symbolID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="symbol" Type="System.String" DbType="VarChar(99)" CanBeNull="true" />
+      <Column Name="Date" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Time" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[Open]" Member="Open" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="High" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Low" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="[Close]" Member="Close" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Volume" Type="System.Decimal" DbType="Decimal(28,4)" CanBeNull="true" />
+      <Column Name="SplitFactor" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="Earnings" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Dividends" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Calendar" Member="Calendar">
+    <Type Name="Calendar">
+      <Column Name="CalendarDate" Type="System.DateTime" DbType="Date NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="intDate" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="dayNumber" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="dayName" Type="System.String" DbType="VarChar(99)" CanBeNull="true" />
+      <Column Name="shortDayName" Type="System.String" DbType="Char(3)" CanBeNull="true" />
+      <Column Name="monthNumber" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="monthName" Type="System.String" DbType="VarChar(99)" CanBeNull="true" />
+      <Column Name="shortMonthName" Type="System.String" DbType="Char(3)" CanBeNull="true" />
+      <Column Name="yearNumber" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="stringDate1" Type="System.String" DbType="VarChar(99)" CanBeNull="true" />
+      <Column Name="stringDate2" Type="System.String" DbType="VarChar(99)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.stageOne_OneFileData" Member="stageOne_OneFileData">
+    <Type Name="stageOne_OneFileData">
+      <Column Name="Date" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Time" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[Open]" Member="Open" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="High" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Low" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="[Close]" Member="Close" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Volume" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="SplitFactor" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="Earnings" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Dividends" Type="System.String" DbType="VarChar(99)" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>
