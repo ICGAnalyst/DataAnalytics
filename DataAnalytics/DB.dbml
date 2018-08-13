@@ -68,4 +68,11 @@
       <Column Name="Dividends" Type="System.String" DbType="VarChar(99)" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.[User]" Member="User">
+    <Type Name="User">
+      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="UserPass" Type="System.String" DbType="Char(32) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
 </Database>

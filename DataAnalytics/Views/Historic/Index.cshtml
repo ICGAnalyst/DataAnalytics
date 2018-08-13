@@ -330,10 +330,14 @@
                     //console.log(toDate);
                     getHistoryData(symbolKey, fromDate, toDate);
                 });
-                
-                var showHistoryData = function (historydata) {
-                    $("#historyDataTable").DataTable({
-                        data: historydata,
+
+
+                var table;
+                //var showHistoryData = function (historydata) {
+                    table = $("#historyDataTable").DataTable({
+                        //data: ['No Data Set'],
+                        //ajax: getHistoryData,
+                        'infoEmpty': '没有数据',
                         "columns": [
                             { "data": "Date" },
                             { "data": "Open" },
@@ -343,7 +347,7 @@
                             { "data": "Volume" }
                         ]
                     });
-                };
+                //};
                 var getHistoryData = function (symbolKey, fromDate, toDate) {
                     $.ajax({
                         url: "/Historic/GetHisToricData",
@@ -356,9 +360,12 @@
                         dataType: "json",
                         crossDomain: true,
                         success: function (response) {
-                            response = response[0];
+                            //response = response[0];
                             if (response.success == '1') {
-                                showHistoryData(response.data);
+                                // 先清空表格
+                                table.clear().draw();
+                                //showHistoryData(response.data);
+                                table.rows.add(response.data).draw();
                             } else {
                                 alert("Unknown error")
                             }
