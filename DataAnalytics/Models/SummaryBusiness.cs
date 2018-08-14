@@ -21,6 +21,7 @@ namespace DataAnalytics.Models
                 foreach (var item in resultSet)
                 {
                     SummaryData summaryData = new SummaryData();
+                    summaryData.DateTime = (int) (item.Date * 100 + item.Time);
                     summaryData.Open = (decimal)item.Open;
                     summaryData.High = (decimal)item.High;
                     summaryData.Low = (decimal)item.Low;

@@ -1,0 +1,153 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    ViewBag.Title = "Home";
+}
+<div class="search-box" style="position:absolute;top:100px;width:100%" ">
+    <div class="search-box-c">
+        <div class="form">
+            <input type="text" placeholder="Please search..." id="searchsymbol">
+            <input type="hidden">
+            <button id="search"></button>
+        </div>
+        <div class="search-box-drop-menu">
+            <ul></ul>
+        </div>
+    </div>
+</div>
+
+<div class="show-box" style="width:100%;position: absolute;top:200px;">
+    <div class="show-box-c">
+        <div class="show-title-box">
+            <ul style="padding-left: 0px">
+                <li class="active"><a href=" ">Home</a></li>
+                <li><a href="#">Summary</a></li>
+                <li><a href="#">Chart</a></li>
+                <li><a href="#">History Data</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="show-chart-box">
+        <div class="show-chart-box-c" style="width:970px;padding: 10px">
+            <div class="calendar" style="float:left">
+                <label for="from">From</label>
+                <input type="text" id="from" name="from" style="background-image: radial-gradient(73% 147%, #EADFDF 59%, #ECE2DF 100%), radial-gradient(91% 146%, rgba(255,255,255,0.50) 47%, rgba(0,0,0,0.50) 100%); background-blend-mode: screen;">
+                <label for="to">To</label>
+                <input type="text" id="to" name="to" style="background-image: radial-gradient(73% 147%, #EADFDF 59%, #ECE2DF 100%), radial-gradient(91% 146%, rgba(255,255,255,0.50) 47%, rgba(0,0,0,0.50) 100%); background-blend-mode: screen;">
+                <input type="radio" id="mostActive" name="filterType" value="1" style="vertical-align: middle; margin-left:10px">Most Active
+                <input type="radio" id="priceGainers" name="filterType" value="2" style="vertical-align: middle; margin-left:10px">Price Gainers
+                <input type="radio" id="priceLowers" name="filterType" value="3" style="vertical-align: middle; margin-left:10px">Price Lowers
+
+            </div>
+            <button class="apply">Apply</button>
+        </div>
+        <div style="margin:40px 10px">
+            <table id="data" class="display" style="width:970px;height:1000px;padding :20px 20px ;">
+                <thead>
+                    <tr>
+                        <th>Symbol</th>
+                        <th>Change</th>
+                        <th>ChangePercent</th>
+                        <th>Volume</th>
+                        <th>Dividends</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+
+</div>
+    @section Footer{
+        <script>
+    $(function () {
+                'user strict';
+
+                $("#from").datepicker({
+                    defaultDate: "+1w",
+                    changeMonth: true,
+                    changeYear: true,
+                    minDate: new Date(2016, 1 - 1, 4),
+                    maxDate: new Date(2016, 3 - 1, 24),
+                    onClose: function (selectedDate) {
+                        $("#to").datepicker("option", "minDate", selectedDate);
+                        $("#from").datepicker("option", "dateFormat", "yy-mm-dd");
+                    }
+                });
+                $("#to").datepicker({
+                    defaultDate: "+1w",
+                    changeMonth: true,
+                    changeYear: true,
+                    minDate: new Date(2016, 1 - 1, 4),
+                    maxDate: new Date(2016, 3 - 1, 24),
+                    onClose: function (selectedDate) {
+                        $("#from").datepicker("option", "maxDate", selectedDate);
+                        $("#to").datepicker("option", "dateFormat", "yy-mm-dd");
+                    }
+                });
+                $("#searchsymbol").bind("keypress", function (event) {
+                    if (event.keycode == '13') {
+                        var txt = $(this).val();
+                        $(".stock-infro").html(txt);
+                        //$(this).val("");
+                    }
+
+                });
+
+                $("#search").on("click", function (event) {
+                    var symbolKey = $("#searchsymbol").val();
+                    var fromDate = 20160104; //The min date
+                    var toDate = 20160324; // The Max date
+                    getHistoryData(symbolKey, fromDate, toDate);
+                });
+
+                $("button.apply").on("click", function (event) {
+                    var fromDate = $("#from").val().replace(/-/g, "");
+                    var toDate = $("#to").val().replace(/-/g, "");
+                    //console.log(fromDate);
+                    //console.log(toDate);
+                    getWatchList(fromDate, toDate);
+                });
+
+
+                var table;
+                //var showHistoryData = function (historydata) {
+                table = $("#data").DataTable({
+                    //data: ['No Data Set'],
+                    //ajax: getHistoryData,
+                    'infoEmpty': '没有数据',
+                    "columns": [
+                        { "data": "Symbol" },
+                        { "data": "Change" },
+                        { "data": "ChangePercent" },
+                        { "data": "Volume" },
+                        { "data": "Dividends" }
+                    ]
+                });
+                //};
+                var getWatchList = function (fromDate, toDate) {
+                    $.ajax({
+                        url: "/WatchLists/GetWatchLists",
+                        type: "POST",
+                        data: {
+                            fromDate: fromDate,
+                            toDate: toDate
+                        },
+                        dataType: "json",
+                        crossDomain: true,
+                        success: function (response) {
+                            //response = response[0];
+                            if (response.code == '1') {
+                                // 先清空表格
+                                table.clear().draw();
+                                //showHistoryData(response.data);
+                                table.rows.add(response.data).draw();
+                            } else {
+                                alert("Unknown error")
+                            }
+
+                        }
+                    });
+                };
+            })</script>
+    }

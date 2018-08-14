@@ -10,18 +10,18 @@ namespace DataAnalytics.Controllers
     public class WatchListsController : Controller
     {
         // GET: WatchLists
-        //public ActionResult Index()
-        //{
-        //    return View();
-        //}
+        public ActionResult Index()
+        {
+            return View();
+        }
 
         [HttpPost]
-        public ActionResult GetWatchlists(int fromDate, int toDate, int condition)
+        public ActionResult GetWatchLists(int fromDate, int toDate)
         {
             try
             {
                 WatchListsBusiness watchListsBusiness = new WatchListsBusiness();
-                List<WatchList> watchLists = watchListsBusiness.GetWatchlists(fromDate, toDate, condition);
+                List<WatchList> watchLists = watchListsBusiness.GetWatchlists(fromDate, toDate);
                 var jsonObject = new
                 {
                     code = 1,

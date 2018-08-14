@@ -228,13 +228,13 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <None Include="Views\Historic\Index.cshtml" />
+    <Content Include="Views\Summary\Index.cshtml" />
+    <Content Include="Views\WatchLists\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\SearchSymbol\" />
-    <Folder Include="Views\Summary\" />
     <Folder Include="Views\User\" />
-    <Folder Include="Views\WatchLists\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

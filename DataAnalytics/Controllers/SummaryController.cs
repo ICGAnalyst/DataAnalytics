@@ -9,11 +9,11 @@ namespace DataAnalytics.Controllers
 {
     public class SummaryController : Controller
     {
-        // GET: Summary
-        //public ActionResult Index()
-        //{
-        //    return View();
-        //}
+        //get: summary
+        public ActionResult Index()
+        {
+            return View();
+        }
 
         [HttpPost]    
         public ActionResult GetSummaryData(string symbol)
