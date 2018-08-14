@@ -55,7 +55,13 @@
 </div>
 
 @section Footer{
+
+
     <script>
+        //function hideDropMenu() {
+        //    var dropMenu = document.getElementsByClassName('search-box-drop-menu')[0];
+        //    dropMenu.style.visibility = "hidden";
+        //}
         $(function () {
             'user strict';
 
@@ -84,6 +90,8 @@
                     $("#to").datepicker("option", "dateFormat", "yy-mm-dd");
                 }
             });
+
+            
             $("#searchsymbol").bind("keypress", function (event) {
                 if (event.keyCode == '13') {
                     var symbolKey = $("#searchsymbol").val();
@@ -100,20 +108,18 @@
                 }
             });
 
-            $(".form").on("blur","#searchsymbol",function () {
-                console.log("blur");
-                //console.log("......." + $(".search-box-drop-menu").html());
-                $(".search-box-drop-menu").hide();
-                $(this).css("background-color","red");
-                //$(".search-box-drop-menu").css("display", "none");
-
+            
+            $("#searchsymbol").on("blur", function () {
+                setTimeout(function () {
+                    $(".search-box-drop-menu").hide();
+                }, 100);
             })
 
-            //$(".search-box-drop-menu ul li").on("click", function () {
-            //    console.log("click");
-            //    $("#searchsymbol").val($(this).html());
-            //    $(".search-box-drop-menu").css("display", "none");
-            //});
+            $(".search-box-drop-menu").on("click", "ul li", function () {
+                //alert("click");
+                $("#searchsymbol").val($(this).html());
+                $(".search-box-drop-menu").hide();
+            });
 
             function Trim(str, is_global) {
                 var result;
@@ -124,7 +130,7 @@
                 return result;
             }
 
-            $("#searchsymbol").bind("input propertychange change", function (event) {
+            $("#searchsymbol").bind("keyup", function (event) {
                 // $("#input_test2").val($("#searchsymbol").val());
                 var getSearchSymbol = $("#searchsymbol").val();
                 var t = Trim(getSearchSymbol, "g");

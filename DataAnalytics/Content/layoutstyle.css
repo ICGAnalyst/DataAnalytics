@@ -84,17 +84,16 @@ input{
   font-family: FontAwesome;
   color: #09203f;
 }
-.search-box-drop-menu{
-    position:relative;
-    z-index:100;
+.search-box-drop-menu {
+    position: relative;
+    z-index: 100;
     position: relative;
     z-index: 100;
     width: 390px;
     margin: 0 auto;
     left: -10px;
-    z-index:3;
+    z-index: 3;
     display: none;
-     
 }
 .search-box-drop-menu ul{
     line-height: 16px;
@@ -110,6 +109,7 @@ input{
     padding: 16px;
 }
 .search-box-drop-menu ul li:hover{
+    cursor: pointer;
     font-size: 15px;
     padding: 16px;
     background-image: linear-gradient(to top, #09203f 0%, #537895 100%); 
