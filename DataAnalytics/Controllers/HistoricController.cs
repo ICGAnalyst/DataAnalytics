@@ -18,16 +18,28 @@ namespace DataAnalytics.Controllers
         [HttpPost]
         public ActionResult GetHisToricData(string symbolKey, int fromDate, int toDate)
         {
-            HistoricBusiness historicBusiness = new HistoricBusiness();
-            List<Historic> historics = historicBusiness.GetHisToricData(symbolKey, fromDate, toDate);
-            var jsonObject = new
+            try
             {
-                success = 1,
-                data = historics
-            };
-            //return Json(historics, JsonRequestBehavior.AllowGet);
+                HistoricBusiness historicBusiness = new HistoricBusiness();
+                List<Historic> historics = historicBusiness.GetHisToricData(symbolKey, fromDate, toDate);
+                var jsonObject = new
+                {
+                    success = 1,
+                    data = historics
+                };
+                //return Json(historics, JsonRequestBehavior.AllowGet);
 
-            return Json(jsonObject);
+                return Json(jsonObject);
+            }
+            catch (Exception e)
+            {
+                var jsonObject = new
+                {
+                    success = 0,
+                    data = new List<Historic>()
+                };
+                return Json(jsonObject);
+            }
         }
     }
 }

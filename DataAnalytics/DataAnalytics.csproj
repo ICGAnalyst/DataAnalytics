@@ -152,7 +152,9 @@
     <Compile Include="Controllers\HistoricController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SearchSymbolController.cs" />
+    <Compile Include="Controllers\SummaryController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\WatchListsController.cs" />
     <Compile Include="DB.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -164,8 +166,12 @@
     <Compile Include="Models\Historic.cs" />
     <Compile Include="Models\HistoricBusiness.cs" />
     <Compile Include="Models\SearchSymbolBusiness.cs" />
+    <Compile Include="Models\SummaryData.cs" />
+    <Compile Include="Models\SummaryBusiness.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserBusiness.cs" />
+    <Compile Include="Models\WatchList.cs" />
+    <Compile Include="Models\WatchListsBusiness.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\MD5Util.cs" />
   </ItemGroup>
@@ -226,7 +232,9 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\SearchSymbol\" />
+    <Folder Include="Views\Summary\" />
     <Folder Include="Views\User\" />
+    <Folder Include="Views\WatchLists\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
