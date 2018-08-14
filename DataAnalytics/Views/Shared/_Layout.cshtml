@@ -1,43 +1,199 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - 我的 ASP.NET 应用程序</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <title>@ViewBag.Title</title>
+    <link href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script type="text/javascript" src="~/Scripts/cufon-yui.js"></script>
+    <script type="text/javascript" src="~/Scripts/arial.js"></script>
+    <script type="text/javascript" src="~/Scripts/cuf_run.js"></script>
+    <link rel="stylesheet" href="https://apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
+    <script src="https://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css" />
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            color: #000;
+            font: normal 12px/1.8em Arial, Helvetica, sans-serif;
+            background-color: #e2edf0;
+        }
+
+        .bg-box {
+            height: 700px;
+            position: fixed;
+            width: 100%;
+            background-image: url(/fonts/bg-img.svg);
+        }
+
+        .form {
+            position: relative;
+            width: 400px;
+            margin: 0 auto;
+        }
+
+        input, button {
+            border: none;
+            outline: none;
+        }
+
+        input {
+            height: 30px;
+            padding-left: 13px;
+        }
+
+        .logo-box {
+            float: left;
+        }
+
+        .sign-in-box button {
+            position: absolute;
+            float: right;
+            right: 20px;
+            top: 40px;
+            margin-top: 10px;
+            margin-right: 20px;
+            padding-bottom: 5px;
+            padding-top: 5px;
+            width: 70px;
+            height: 35px;
+        }
+
+        .search-box-c .form {
+            height: 42px;
+        }
+
+        .search-box-c input {
+            border-radius: 42px;
+            border: 2px solid #324B4E;
+            background-image: linear-gradient(to top, #d5d4d0 0%, #d5d4d0 1%, #eeeeec 31%, #efeeec 75%, #e9e9e7 100%);
+            transition: .3s linear;
+            float: right;
+            width: 100%;
+        }
+
+            .search-box-c input:focus {
+                width: 400px;
+            }
+
+        .search-box-c button {
+            background: none;
+            top: -2px;
+            right: 0;
+            height: 39px;
+            width: 42px;
+            cursor: pointer;
+            position: absolute;
+        }
+
+            .search-box-c button:before {
+                content: "\f002";
+                font-family: FontAwesome;
+                color: #324b4e;
+            }
+
+        .show-box-c {
+            position: relative;
+            margin: 0 auto;
+            padding: 0;
+            width: 970px;
+            background: repeat-x top;
+            background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
+            height: 63px;
+        }
+
+        .show-title-box {
+            margin: 0;
+            padding: 0 0 0 40px;
+            float: left;
+        }
+
+            .show-title-box ul {
+                margin: 0 auto;
+                width: 800px;
+                position: relative;
+                height: 40px;
+            }
+
+                .show-title-box ul li {
+                    list-style: none;
+                    float: left;
+                    margin: 0;
+                }
+
+                    .show-title-box ul li a {
+                        display: block;
+                        margin: 0;
+                        padding: 20px 24px;
+                        color: #52aec6;
+                        text-decoration: none;
+                        font-size: 13px;
+                        text-transform: uppercase;
+                    }
+
+                        .show-title-box ul li.active a, .show-title-box ul li a:hover {
+                            background: #52aec6 url(/Images/menu_a.gif) repeat-x center;
+                            color: #fff;
+                            border-bottom: solid #3f7486 3px;
+                        }
+
+        .show-chart-box {
+            position: relative;
+            margin: 0 auto;
+            width: 970px;
+            background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+        }
+
+        #historyDataTable_filter {
+            display: none;
+        }
+
+        #historyDataTable_length {
+            margin-top: 15px;
+            font-size: 16px;
+        }
+
+        .show-chart-box-c button {
+            margin-right: 20px;
+            padding-bottom: 5px;
+            padding-top: 5px;
+            float: right;
+            width: 70px;
+            height: 35px;
+            background: #52aec6 url(/Images/menu_a.gif) repeat-x center;
+            color: #fff;
+        }
+    </style>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("应用程序名称", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+    <div class="main-box">
+        <div class="bg-box">
+        </div>
+        <div class="title-box">
+            <div class="logo-box">
+                <h1 style="margin-left: 20px;margin-top: 5px;">logo</h1>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("主页", "Index", "Home")</li>
-                    <li>@Html.ActionLink("关于", "About", "Home")</li>
-                    <li>@Html.ActionLink("联系方式", "Contact", "Home")</li>
-                </ul>
+            <div class="sign-in-box">
+                <button>Sign In</button>
             </div>
         </div>
-    </div>
-    <div class="container body-content">
+        <div class="search-box" style="position:absolute;top:100px;text-align:center;width:100%">
+            <div class="search-box-c">
+                <div class="form">
+                    <input type="text" placeholder="Please search..." id="searchsymbol">
+                    <input type="hidden">
+                    <button id="search"></button>
+                </div>
+            </div>
+        </div>
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - 我的 ASP.NET 应用程序</p>
-        </footer>
     </div>
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+    <footer>@RenderSection("Footer", false)</footer>
 </body>
 </html>
