@@ -78,9 +78,9 @@
             width: 100%;
         }
 
-            .search-box-c input:focus {
-                width: 400px;
-            }
+        .search-box-c input:focus {
+            width: 400px;
+        }
 
         .search-box-c button {
             background: none;
@@ -92,11 +92,21 @@
             position: absolute;
         }
 
-            .search-box-c button:before {
-                content: "\f002";
-                font-family: FontAwesome;
-                color: #324b4e;
-            }
+        .search-box-drop-menu {
+            position: relative;
+            z-index: 100;
+            position: relative;
+            z-index: 100;
+            border: solid red 3px;
+            width: 410px;
+            margin: 0 auto;
+            left: -10px;
+        }
+        .search-box-c button:before {
+            content: "\f002";
+            font-family: FontAwesome;
+            color: #324b4e;
+        }
 
         .show-box-c {
             position: relative;
@@ -189,6 +199,9 @@
                     <input type="text" placeholder="Please search..." id="searchsymbol">
                     <input type="hidden">
                     <button id="search"></button>
+                </div>
+                <div class="search-box-drop-menu">
+                    <ul></ul>
                 </div>
             </div>
         </div>

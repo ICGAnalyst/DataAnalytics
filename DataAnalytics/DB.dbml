@@ -75,4 +75,31 @@
       <Column Name="UserPass" Type="System.String" DbType="Char(32) NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
+  <Table Name="dbo.AggsByDay" Member="AggsByDay">
+    <Type Name="AggsByDay">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="symbolID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Date" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[Open]" Member="Open" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="High" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Low" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="[Close]" Member="Close" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Volume" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="SplitFactor" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="Earnings" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Dividends" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Function Name="dbo.usp_getwatchlists" Method="usp_getwatchlists">
+    <Parameter Name="fromDate" Type="System.Int32" DbType="Int" />
+    <Parameter Name="toDate" Type="System.Int32" DbType="Int" />
+    <ElementType Name="usp_getwatchlistsResult">
+      <Column Name="symbolId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[open]" Member="open" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="[close]" Member="close" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="sum" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="dividends" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="symbol" Type="System.String" DbType="VarChar(99)" CanBeNull="true" />
+    </ElementType>
+  </Function>
 </Database>

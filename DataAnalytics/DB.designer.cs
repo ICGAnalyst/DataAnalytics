@@ -45,6 +45,9 @@ namespace DataAnalytics
     partial void InsertUser(User instance);
     partial void UpdateUser(User instance);
     partial void DeleteUser(User instance);
+    partial void InsertAggsByDay(AggsByDay instance);
+    partial void UpdateAggsByDay(AggsByDay instance);
+    partial void DeleteAggsByDay(AggsByDay instance);
     #endregion
 		
 		public DBDataContext() : 
@@ -123,6 +126,21 @@ namespace DataAnalytics
 			{
 				return this.GetTable<User>();
 			}
+		}
+		
+		public System.Data.Linq.Table<AggsByDay> AggsByDay
+		{
+			get
+			{
+				return this.GetTable<AggsByDay>();
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.usp_getwatchlists")]
+		public ISingleResult<usp_getwatchlistsResult> usp_getwatchlists([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> fromDate, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> toDate)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), fromDate, toDate);
+			return ((ISingleResult<usp_getwatchlistsResult>)(result.ReturnValue));
 		}
 	}
 	
@@ -1485,6 +1503,424 @@ namespace DataAnalytics
 			if ((this.PropertyChanged != null))
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.AggsByDay")]
+	public partial class AggsByDay : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private System.Nullable<int> _symbolID;
+		
+		private System.Nullable<int> _Date;
+		
+		private System.Nullable<decimal> _Open;
+		
+		private System.Nullable<decimal> _High;
+		
+		private System.Nullable<decimal> _Low;
+		
+		private System.Nullable<decimal> _Close;
+		
+		private System.Nullable<float> _Volume;
+		
+		private System.Nullable<float> _SplitFactor;
+		
+		private System.Nullable<int> _Earnings;
+		
+		private System.Nullable<double> _Dividends;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnsymbolIDChanging(System.Nullable<int> value);
+    partial void OnsymbolIDChanged();
+    partial void OnDateChanging(System.Nullable<int> value);
+    partial void OnDateChanged();
+    partial void OnOpenChanging(System.Nullable<decimal> value);
+    partial void OnOpenChanged();
+    partial void OnHighChanging(System.Nullable<decimal> value);
+    partial void OnHighChanged();
+    partial void OnLowChanging(System.Nullable<decimal> value);
+    partial void OnLowChanged();
+    partial void OnCloseChanging(System.Nullable<decimal> value);
+    partial void OnCloseChanged();
+    partial void OnVolumeChanging(System.Nullable<float> value);
+    partial void OnVolumeChanged();
+    partial void OnSplitFactorChanging(System.Nullable<float> value);
+    partial void OnSplitFactorChanged();
+    partial void OnEarningsChanging(System.Nullable<int> value);
+    partial void OnEarningsChanged();
+    partial void OnDividendsChanging(System.Nullable<double> value);
+    partial void OnDividendsChanged();
+    #endregion
+		
+		public AggsByDay()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_symbolID", DbType="Int")]
+		public System.Nullable<int> symbolID
+		{
+			get
+			{
+				return this._symbolID;
+			}
+			set
+			{
+				if ((this._symbolID != value))
+				{
+					this.OnsymbolIDChanging(value);
+					this.SendPropertyChanging();
+					this._symbolID = value;
+					this.SendPropertyChanged("symbolID");
+					this.OnsymbolIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date", DbType="Int")]
+		public System.Nullable<int> Date
+		{
+			get
+			{
+				return this._Date;
+			}
+			set
+			{
+				if ((this._Date != value))
+				{
+					this.OnDateChanging(value);
+					this.SendPropertyChanging();
+					this._Date = value;
+					this.SendPropertyChanged("Date");
+					this.OnDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Open]", Storage="_Open", DbType="Money")]
+		public System.Nullable<decimal> Open
+		{
+			get
+			{
+				return this._Open;
+			}
+			set
+			{
+				if ((this._Open != value))
+				{
+					this.OnOpenChanging(value);
+					this.SendPropertyChanging();
+					this._Open = value;
+					this.SendPropertyChanged("Open");
+					this.OnOpenChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_High", DbType="Money")]
+		public System.Nullable<decimal> High
+		{
+			get
+			{
+				return this._High;
+			}
+			set
+			{
+				if ((this._High != value))
+				{
+					this.OnHighChanging(value);
+					this.SendPropertyChanging();
+					this._High = value;
+					this.SendPropertyChanged("High");
+					this.OnHighChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Low", DbType="Money")]
+		public System.Nullable<decimal> Low
+		{
+			get
+			{
+				return this._Low;
+			}
+			set
+			{
+				if ((this._Low != value))
+				{
+					this.OnLowChanging(value);
+					this.SendPropertyChanging();
+					this._Low = value;
+					this.SendPropertyChanged("Low");
+					this.OnLowChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Close]", Storage="_Close", DbType="Money")]
+		public System.Nullable<decimal> Close
+		{
+			get
+			{
+				return this._Close;
+			}
+			set
+			{
+				if ((this._Close != value))
+				{
+					this.OnCloseChanging(value);
+					this.SendPropertyChanging();
+					this._Close = value;
+					this.SendPropertyChanged("Close");
+					this.OnCloseChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Volume", DbType="Real")]
+		public System.Nullable<float> Volume
+		{
+			get
+			{
+				return this._Volume;
+			}
+			set
+			{
+				if ((this._Volume != value))
+				{
+					this.OnVolumeChanging(value);
+					this.SendPropertyChanging();
+					this._Volume = value;
+					this.SendPropertyChanged("Volume");
+					this.OnVolumeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SplitFactor", DbType="Real")]
+		public System.Nullable<float> SplitFactor
+		{
+			get
+			{
+				return this._SplitFactor;
+			}
+			set
+			{
+				if ((this._SplitFactor != value))
+				{
+					this.OnSplitFactorChanging(value);
+					this.SendPropertyChanging();
+					this._SplitFactor = value;
+					this.SendPropertyChanged("SplitFactor");
+					this.OnSplitFactorChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Earnings", DbType="Int")]
+		public System.Nullable<int> Earnings
+		{
+			get
+			{
+				return this._Earnings;
+			}
+			set
+			{
+				if ((this._Earnings != value))
+				{
+					this.OnEarningsChanging(value);
+					this.SendPropertyChanging();
+					this._Earnings = value;
+					this.SendPropertyChanged("Earnings");
+					this.OnEarningsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Dividends", DbType="Float")]
+		public System.Nullable<double> Dividends
+		{
+			get
+			{
+				return this._Dividends;
+			}
+			set
+			{
+				if ((this._Dividends != value))
+				{
+					this.OnDividendsChanging(value);
+					this.SendPropertyChanging();
+					this._Dividends = value;
+					this.SendPropertyChanged("Dividends");
+					this.OnDividendsChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	public partial class usp_getwatchlistsResult
+	{
+		
+		private System.Nullable<int> _symbolId;
+		
+		private System.Nullable<decimal> _open;
+		
+		private System.Nullable<decimal> _close;
+		
+		private System.Nullable<double> _sum;
+		
+		private System.Nullable<double> _dividends;
+		
+		private string _symbol;
+		
+		public usp_getwatchlistsResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_symbolId", DbType="Int")]
+		public System.Nullable<int> symbolId
+		{
+			get
+			{
+				return this._symbolId;
+			}
+			set
+			{
+				if ((this._symbolId != value))
+				{
+					this._symbolId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[open]", Storage="_open", DbType="Money")]
+		public System.Nullable<decimal> open
+		{
+			get
+			{
+				return this._open;
+			}
+			set
+			{
+				if ((this._open != value))
+				{
+					this._open = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[close]", Storage="_close", DbType="Money")]
+		public System.Nullable<decimal> close
+		{
+			get
+			{
+				return this._close;
+			}
+			set
+			{
+				if ((this._close != value))
+				{
+					this._close = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sum", DbType="Float")]
+		public System.Nullable<double> sum
+		{
+			get
+			{
+				return this._sum;
+			}
+			set
+			{
+				if ((this._sum != value))
+				{
+					this._sum = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_dividends", DbType="Float")]
+		public System.Nullable<double> dividends
+		{
+			get
+			{
+				return this._dividends;
+			}
+			set
+			{
+				if ((this._dividends != value))
+				{
+					this._dividends = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_symbol", DbType="VarChar(99)")]
+		public string symbol
+		{
+			get
+			{
+				return this._symbol;
+			}
+			set
+			{
+				if ((this._symbol != value))
+				{
+					this._symbol = value;
+				}
 			}
 		}
 	}

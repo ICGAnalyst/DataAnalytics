@@ -38,5 +38,11 @@
         <elementListCompartment Id="4e34c206-502e-4672-85c6-64813a656b1f" absoluteBounds="3.39, 0.96, 1.9700000000000002, 0.792510986328125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <classShape Id="01579353-236d-4aaa-b23d-4cde262f53ea" absoluteBounds="0.5, 0.875, 2, 2.8308638509114581">
+      <DataClassMoniker Name="/DBDataContext/AggsByDay" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d1313e23-3a5c-484f-8e8f-32f97c57534b" absoluteBounds="0.515, 1.335, 1.9700000000000002, 2.270863850911458" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>
