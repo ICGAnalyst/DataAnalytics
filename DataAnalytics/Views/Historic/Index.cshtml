@@ -1,382 +1,324 @@
-﻿
-@{
+﻿@{
     Layout = null;
 }
-
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Security</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <link href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script type="text/javascript" src="~/Scripts/cufon-yui.js"></script>
+    <script type="text/javascript" src="~/Scripts/arial.js"></script>
+    <script type="text/javascript" src="~/Scripts/cuf_run.js"></script>
     <link rel="stylesheet" href="https://apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
     <script src="https://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="https://apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css" />
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
-
+    <style></style>
     <style>
-        #ui-datepicker-div {
-            width: 200px;
-        }
-
-        .ui-datepicker table {
-            font-size: .7em;
-        }
-
-        .ui-datepicker .ui-datepicker-title select {
-            font-size: .7em;
-        }
-
-        .button {
-            background-color: #2776f2;
-            border: none;
-            color: white;
-            padding: 10px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            border-radius: 12px;
-        }
-
-        .button1 {
-            background-color: #2776f2;
-            border: none;
-            border-color: #a76cea;
-            color: white;
-            padding: 7px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            border-radius: 12px;
-        }
-
-        .input {
-            padding: 10px 300px;
-        }
-
-        .menu-bar {
-            list-style-type: none;
+        body {
             margin: 0;
             padding: 0;
-            overflow: hidden;
-            border: 1px solid #e7e7e7;
-            background-color: #f3f3f3;
+            width: 100%;
+            color: #000;
+            font: normal 12px/1.8em Arial, Helvetica, sans-serif;
+            background-color: #e2edf0;
         }
 
-            .menu-bar li {
-                float: left;
-            }
+        .bg-box {
+            height: 700px;
+            position: fixed;
+            width: 100%;
+            background-image: url(/fonts/bg-img.svg);
+        }
 
-                .menu-bar li a {
-                    display: block;
-                    color: #666;
-                    text-align: center;
-                    padding: 14px 16px;
-                    text-decoration: none;
-                }
-
-                    .menu-bar li a:hover:not(.active) {
-                        background-color: #ddd;
-                    }
-
-                    .menu-bar li a.active {
-                        color: white;
-                        background-color: #4CAF50;
-                    }
-
-        #dropdown {
-            width: 200px;
+        .form {
             position: relative;
-            float: left
+            width: 400px;
+            margin: 0 auto;
         }
 
-            #dropdown p {
-                width: 190px;
-                height: 24px;
-                line-height: 24px;
-                padding-left: 10px;
-                border: 1px solid #a9c9e2;
-                background: #e8f5fe url(arrow.gif) no-repeat right 4px;
-                color: #807a62;
-                cursor: pointer;
-                margin: 0;
-                margin-left: 20px;
+        input, button {
+            border: none;
+            outline: none;
+        }
+
+        input {
+            height: 30px;
+            padding-left: 13px;
+        }
+
+        .logo-box {
+            float: left;
+        }
+
+        .sign-in-box button {
+            position: absolute;
+            float: right;
+            right: 20px;
+            top: 40x;
+            margin-top: 10px;
+            margin-right: 20px;
+            padding-bottom: 5px;
+            padding-top: 5px;
+            width: 70px;
+            height: 35px;
+        }
+
+        .search-box-c .form {
+            height: 42px;
+        }
+
+        .search-box-c input {
+            border-radius: 42px;
+            border: 2px solid #324B4E;
+            background-image: linear-gradient(to top, #d5d4d0 0%, #d5d4d0 1%, #eeeeec 31%, #efeeec 75%, #e9e9e7 100%);
+            transition: .3s linear;
+            float: right;
+            width: 100%;
+        }
+
+            .search-box-c input:focus {
+                width: 400px;
             }
 
-            #dropdown ul {
-                width: 200px;
-                background: #e8f5fe;
-                margin-top: 2px;
-                border: 1px solid #a9c9e2;
-                position: absolute;
-                display: none;
-                padding: 0;
-                list-style: none;
-                margin-left: 20px;
+        .search-box-c button {
+            background: none;
+            top: -2px;
+            right: 0;
+            height: 39px;
+            width: 42px;
+            cursor: pointer;
+            position: absolute;
+        }
+
+            .search-box-c button:before {
+                content: "\f002";
+                font-family: FontAwesome;
+                color: #324b4e;
             }
 
-                #dropdown ul li {
-                    height: 24px;
-                    line-height: 24px;
-                    text-indent: 10px
-                }
-
-                    #dropdown ul li a {
-                        display: block;
-                        height: 24px;
-                        color: #807a62;
-                        text-decoration: none
-                    }
-
-                        #dropdown ul li a:hover {
-                            background: #c6dbfc;
-                            color: #369
-                        }
-
-        #frequency {
-            width: 200px;
+        .show-box-c {
             position: relative;
-            float: left
+            margin: 0 auto;
+            padding: 0;
+            width: 970px;
+            background: repeat-x top;
+            background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
+            height: 63px;
         }
 
-            #frequency p {
-                width: 190px;
-                height: 24px;
-                line-height: 24px;
-                padding-left: 10px;
-                border: 1px solid #a9c9e2;
-                background: #e8f5fe url(arrow.gif) no-repeat right 4px;
-                color: #807a62;
-                cursor: pointer;
-                margin: 0;
-                margin-left: 40px;
-            }
-
-            #frequency ul {
-                width: 200px;
-                background: #e8f5fe;
-                margin-top: 2px;
-                border: 1px solid #a9c9e2;
-                position: absolute;
-                display: none;
-                padding: 0;
-                list-style: none;
-                margin-left: 40px;
-            }
-
-                #frequency ul li {
-                    height: 24px;
-                    line-height: 24px;
-                    text-indent: 10px
-                }
-
-                    #frequency ul li a {
-                        display: block;
-                        height: 24px;
-                        color: #807a62;
-                        text-decoration: none
-                    }
-
-                        #frequency ul li a:hover {
-                            background: #c6dbfc;
-                            color: #369
-                        }
-
-        .search-drop-box {
-            position: relative;
-            z-index: 100;
+        .show-title-box {
+            margin: 0;
+            padding: 0 0 0 40px;
+            float: left;
         }
 
-            .search-drop-box ul {
-                border: solid 1px blue;
+            .show-title-box ul {
+                margin: 0 auto;
+                width: 800px;
+                position: relative;
+                height: 40px;
             }
 
-                .search-drop-box ul li {
+                .show-title-box ul li {
                     list-style: none;
+                    float: left;
+                    margin: 0;
                 }
+
+                    .show-title-box ul li a {
+                        display: block;
+                        margin: 0;
+                        padding: 20px 24px;
+                        color: #52aec6;
+                        text-decoration: none;
+                        font-size: 13px;
+                        text-transform: uppercase;
+                    }
+
+                        .show-title-box ul li.active a, .show-title-box ul li a:hover {
+                            background: #52aec6 url(/Images/menu_a.gif) repeat-x center;
+                            color: #fff;
+                            border-bottom: solid #3f7486 3px;
+                        }
+
+        .show-chart-box {
+            position: relative;
+            margin: 0 auto;
+            width: 970px;
+            background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+        }
+
+        #historyDataTable_filter {
+            display: none;
+        }
+
+        #historyDataTable_length {
+            margin-top: 15px;
+            font-size: 16px;
+        }
+
+        .show-chart-box-c button {
+            margin-right: 20px;
+            padding-bottom: 5px;
+            padding-top: 5px;
+            float: right;
+            width: 70px;
+            height: 35px;
+            background: #52aec6 url(/Images/menu_a.gif) repeat-x center;
+            color: #fff;
+        }
     </style>
 </head>
 <body>
-    <div style="padding:30px ">
-        <div style="float:left;">Logo</div>
-        <div style="float:left;">
-            <input id="searchsymbol" type="text" class="input" onfocus="this.value=''" value="Please input..." />
-            <div class="search-drop-box" style="display:none">
-                <ul>
-                    <li>1</li>
-                    <li>2</li>
-                    <li>3</li>
-                </ul>
+    <div class="main-box">
+        <div class="bg-box">
+        </div>
+        <div class="title-box">
+            <div class="logo-box">
+                <h1 style="margin-left: 20px;margin-top: 5px;">logo</h1>
+            </div>
+            <div class="sign-in-box">
+                <button>Sign In</button>
             </div>
         </div>
-        <button id="search" type="button" class="button">search</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="sign" type="button" class="button1">sign in</button>
-
-    </div>
-    <div class="stock-Infro"></div>
-    <div style="position:absolute">
-        <ul class="menu-bar">
-            <li><a class="active" href="#home">Summary</a></li>
-            <li><a href="#news">Chart</a></li>
-            <li><a href="#contact">History Data</a></li>
-        </ul>
-    </div>
-    <div style="position: absolute;top:160px;">
-        <div class="calendar" style="float:left">
-            <label for="from">From</label>
-            <input type="text" id="from" name="from">
-            <label for="to">To</label>
-            <input type="text" id="to" name="to">
-        </div>
-        <!--
-            <div id="dropdown">
-                <p>History prices</p>
-                <ul>
-                    <li><a href="#" rel="1">History prices</a></li>
-                    <li><a href="#" rel="2">Dividends only</a></li>
-                    <li><a href="#" rel="3">Stock splits</a></li>
-                </ul>
+        <div class="search-box" style="position:absolute;top:100px;text-align:center;width:100%">
+            <div class="search-box-c">
+                <div class="form">
+                    <input type="text" placeholder="Please search..." id="searchsymbol">
+                    <input type="hidden">
+                    <button id="search"></button>
+                </div>
             </div>
-            <div id="frequency">
-                    <p>Daily</p>
+        </div>
+        <div class="show-box" style="width:100%;position: absolute;top:200px;">
+            <div class="show-box-c">
+                <div class="show-title-box">
                     <ul>
-                        <li><a href="#" rel="1">Daily</a></li>
-                        <li><a href="#" rel="2">Weekly</a></li>
-                        <li><a href="#" rel="3">Monthly</a></li>
+                        <li><a href="#">Summary</a></li>
+                        <li><a href="#">Chart</a></li>
+                        <li class="active"><a href="#">History Data</a></li>
                     </ul>
+                </div>
             </div>
-        -->
-        <button class="apply" style="margin-left:60px;padding-bottom: 5px;padding-top: 2px;">Apply</button>
+            <div class="show-chart-box">
+                <div class="show-chart-box-c" style="width:970px;padding: 10px">
+                    <div class="calendar" style="float:left">
+                        <label for="from">From</label>
+                        <input type="text" id="from" name="from" style="background-image: radial-gradient(73% 147%, #EADFDF 59%, #ECE2DF 100%), radial-gradient(91% 146%, rgba(255,255,255,0.50) 47%, rgba(0,0,0,0.50) 100%); background-blend-mode: screen;">
+                        <label for="to">To</label>
+                        <input type="text" id="to" name="to" style="background-image: radial-gradient(73% 147%, #EADFDF 59%, #ECE2DF 100%), radial-gradient(91% 146%, rgba(255,255,255,0.50) 47%, rgba(0,0,0,0.50) 100%); background-blend-mode: screen;">
+                    </div>
+                    <button class="apply">Apply</button>
+                </div>
+                <table id="historyDataTable" class="display" style="width:970px;height:1000px;padding :20px 20px ;">
+                    <thead> 
+                        <tr> 
+                        <th>Date</th> 
+                        <th>Open</th> 
+                        <th>High</th> 
+                        <th>Low</th> 
+                        <th>Close</th> 
+                        <th>Volume</th> 
+                        </tr> 
+                    </thead>
+                </table>
+            </div>
+
+        </div>
     </div>
-    
-    <div style="margin-top:100px">
-        <table id="historyDataTable" class="display"></table>
-    </div>
-        <script>
-            $(function () {
-                'user strict';
-
-                $("#from").datepicker({
-                    defaultDate: "+1w",
-                    changeMonth: true,
-                    changeYear: true,
-                    onClose: function (selectedDate) {
-                        $("#to").datepicker("option", "minDate", selectedDate);
-                        $("#from").datepicker("option", "dateFormat", "yy-mm-dd");
-                    }
-                });
-                $("#to").datepicker({
-                    defaultDate: "+1w",
-                    changeMonth: true,
-                    changeYear: true,
-                    onClose: function (selectedDate) {
-                        $("#from").datepicker("option", "maxDate", selectedDate);
-                        $("#to").datepicker("option", "dateFormat", "yy-mm-dd");
-                    }
-                });
-                /*
-                $("#dropdown p").click(function(){
-                    var ul = $("#dropdown ul");
-                    if(ul.css("display")=="none"){
-                        ul.slideDown("fast");
-                    }else{
-                        ul.slideUp("fast");
-                    }
-                });
-                $("#dropdown ul li a").click(function(){
-                    var txt = $(this).text();
-                    $("#dropdown p").html(txt);
-                    var value = $(this).attr("rel");
-                    $("#dropdown ul").hide();
-                });
-                $("#frequency p").click(function(){
-                    var ul = $("#frequency ul");
-                    if(ul.css("display")=="none"){
-                        ul.slideDown("fast");
-                    }else{
-                        ul.slideUp("fast");
-                    }
-                });
-                $("#frequency ul li a").click(function(){
-                    var txt = $(this).text();
-                    $("#frequency p").html(txt);
-                    var value = $(this).attr("rel");
-                    $("#frequency ul").hide();
-                });
-                */
-                $("#searchsymbol").bind("keypress", function (event) {
-                    if (event.keyCode == '13') {
-                        var txt = $(this).val();
-                        $(".stock-Infro").html(txt);
-                        //$(this).val("");
-                    }
-                });
-
-                $("#search").on("click", function (event) {
-                    var symbolKey = $("#searchsymbol").val();
-                    var fromDate = 20160104; //The min date
-                    var toDate = 20160324; // The Max date
-                    getHistoryData(symbolKey, fromDate, toDate);
-                });
-
-                $("button.apply").on("click", function (event) {
-                    var symbolKey = $("#searchsymbol").val();
-                    var fromDate = $("#from").val().replace(/-/g, "");
-                    var toDate = $("#to").val().replace(/-/g, "");
-                    //console.log(fromDate);
-                    //console.log(toDate);
-                    getHistoryData(symbolKey, fromDate, toDate);
-                });
-
-
-                var table;
-                //var showHistoryData = function (historydata) {
-                    table = $("#historyDataTable").DataTable({
-                        //data: ['No Data Set'],
-                        //ajax: getHistoryData,
-                        'infoEmpty': '没有数据',
-                        "columns": [
-                            { "data": "Date" },
-                            { "data": "Open" },
-                            { "data": "High" },
-                            { "data": "Low" },
-                            { "data": "Close" },
-                            { "data": "Volume" }
-                        ]
-                    });
-                //};
-                var getHistoryData = function (symbolKey, fromDate, toDate) {
-                    $.ajax({
-                        url: "/Historic/GetHisToricData",
-                        type: "POST",
-                        data: {
-                            symbolKey: symbolKey,
-                            fromDate: fromDate,
-                            toDate: toDate
-                        },
-                        dataType: "json",
-                        crossDomain: true,
-                        success: function (response) {
-                            //response = response[0];
-                            if (response.success == '1') {
-                                // 先清空表格
-                                table.clear().draw();
-                                //showHistoryData(response.data);
-                                table.rows.add(response.data).draw();
-                            } else {
-                                alert("Unknown error")
-                            }
-                            
-                        }
-                    });
-                };
-            })
-
-
-        </script>
 </body>
-</html>
+<script>
+    $(function () {
+        'user strict';
 
+        $("#from").datepicker({
+            defaultDate: "+1w",
+            changeMonth: true,
+            changeYear: true,
+            onClose: function (selectedDate) {
+                $("#to").datepicker("option", "minDate", selectedDate);
+                $("#from").datepicker("option", "dateFormat", "yy-mm-dd");
+            }
+        });
+        $("#to").datepicker({
+            defaultDate: "+1w",
+            changeMonth: true,
+            changeYear: true,
+            onClose: function (selectedDate) {
+                $("#from").datepicker("option", "maxDate", selectedDate);
+                $("#to").datepicker("option", "dateFormat", "yy-mm-dd");
+            }
+        });
+        $("#searchsymbol").bind("keypress", function (event) {
+            if (event.keycode == '13') {
+                var txt = $(this).val();
+                $(".stock-infro").html(txt);
+                //$(this).val("");
+            }
+
+        });
+
+        $("#search").on("click", function (event) {
+            var symbolKey = $("#searchsymbol").val();
+            var fromDate = 20160104; //The min date
+            var toDate = 20160324; // The Max date
+            getHistoryData(symbolKey, fromDate, toDate);
+        });
+
+        $("button.apply").on("click", function (event) {
+            var symbolKey = $("#searchsymbol").val();
+            var fromDate = $("#from").val().replace(/-/g, "");
+            var toDate = $("#to").val().replace(/-/g, "");
+            //console.log(fromDate);
+            //console.log(toDate);
+            getHistoryData(symbolKey, fromDate, toDate);
+        });
+
+
+        var table;
+        //var showHistoryData = function (historydata) {
+        table = $("#historyDataTable").DataTable({
+            //data: ['No Data Set'],
+            //ajax: getHistoryData,
+            'infoEmpty': '没有数据',
+            "columns": [
+                { "data": "Date" },
+                { "data": "Open" },
+                { "data": "High" },
+                { "data": "Low" },
+                { "data": "Close" },
+                { "data": "Volume" }
+            ]
+        });
+        //};
+        var getHistoryData = function (symbolKey, fromDate, toDate) {
+            $.ajax({
+                url: "/Historic/GetHisToricData",
+                type: "POST",
+                data: {
+                    symbolKey: symbolKey,
+                    fromDate: fromDate,
+                    toDate: toDate
+                },
+                dataType: "json",
+                crossDomain: true,
+                success: function (response) {
+                    //response = response[0];
+                    if (response.success == '1') {
+                        // 先清空表格
+                        table.clear().draw();
+                        //showHistoryData(response.data);
+                        table.rows.add(response.data).draw();
+                    } else {
+                        alert("Unknown error")
+                    }
+
+                }
+            });
+        };
+    })
+</script>
+</html>
