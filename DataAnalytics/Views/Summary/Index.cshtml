@@ -4,88 +4,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<style>
-    .show-box-c {
-        position: relative;
-        margin: 0 auto;
-        padding: 0;
-        width: 970px;
-        background: repeat-x top;
-        background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
-        height: 63px;
-    }
-
-    .show-title-box {
-        margin: 0;
-        padding: 0 0 0 40px;
-        float: left;
-    }
-
-        .show-title-box ul {
-            margin: 0 auto;
-            width: 800px;
-            position: relative;
-            height: 40px;
-        }
-
-            .show-title-box ul li {
-                list-style: none;
-                float: left;
-                margin: 0;
-            }
-
-                .show-title-box ul li a {
-                    display: block;
-                    margin: 0;
-                    padding: 20px 24px;
-                    color: #52aec6;
-                    text-decoration: none;
-                    font-size: 13px;
-                    text-transform: uppercase;
-                }
-
-                    .show-title-box ul li.active a, .show-title-box ul li a:hover {
-                        background: #a5bbc0 url(images/menu_a.gif) repeat-x center;
-                        color: #fff;
-                        border-bottom: solid #3f7486 3px;
-                    }
-
-    .show-chart-box {
-        position: relative;
-        margin: 0 auto;
-        width: 970px;
-        background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
-    }
-
-    #historyDataTable_filter {
-        display: none;
-    }
-
-    #historyDataTable_length {
-        margin-top: 15px;
-        font-size: 16px;
-    }
-
-    .show-chart-box-c button {
-        margin-right: 20px;
-        padding-bottom: 5px;
-        padding-top: 5px;
-        float: right;
-        width: 70px;
-        height: 35px;
-        background: #52aec6 url(images/menu_a.gif) repeat-x center;
-        color: #fff;
-    }
-
-    .stock-Infro {
-        width: 970px;
-        position: relative;
-        margin: 0 auto;
-        top: 140px;
-        background-image: linear-gradient(to top, #d5d4d0 0%, #d5d4d0 1%, #eeeeec 31%, #efeeec 75%, #e9e9e7 100%);
-        height: 60px;
-    }
-</style>
 
 <div class="search-box" style="position:absolute;top:100px;width:100%" ">
     <div class="search-box-c">
@@ -106,12 +24,13 @@
             <ul>
                 <li> <a href="#">Home</a></li>
                 <li class="active"><a href="#">Summary</a></li>
-                <li><a href="#">Chart</a></li>
+                <li><a href="/Chart">Chart</a></li>
                 <li><a href="#">History Data</a></li>
             </ul>
         </div>
     </div>
     <div class="show-chart-box">
+        <!--
         <div class="show-chart-box-c" style="width:970px;padding: 10px">
             <div class="calendar" style="float:left">
                 <label for="from">From</label>
@@ -121,34 +40,19 @@
             </div>
             <button class="apply">Apply</button>
         </div>
+        -->
         <div id="summary-container" style="height: 400px; min-width: 310px"></div>
     </div>
 
 </div>
+
+<script src="~/Scripts/highstock.js"></script>
+<script src="~/Scripts/exporting.js"></script>
+<script src="~/Scripts/export-data.js"></script>
 <script>
     $(function () {
         'user strict';
 
-        $("#from").datepicker({
-            defaultDate: "+1w",
-            changeMonth: true,
-            changeYear: true,
-            minDate: new Date(2016, 1 - 1, 4),
-            onClose: function (selectedDate) {
-                $("#to").datepicker("option", "minDate", selectedDate);
-                $("#from").datepicker("option", "dateFormat", "yy-mm-dd");
-            }
-        });
-        $("#to").datepicker({
-            defaultDate: "+1w",
-            changeMonth: true,
-            changeYear: true,
-            maxDate: new Date(2016, 3 - 1, 24),
-            onClose: function (selectedDate) {
-                $("#from").datepicker("option", "maxDate", selectedDate);
-                $("#to").datepicker("option", "dateFormat", "yy-mm-dd");
-            }
-        });
         function Trim(str, is_global) {
             var result;
             result = str.replace(/(^\s+)|(\s+$)/g, "");
@@ -175,14 +79,16 @@
                     crossDomain: true,
                     success: function (response) {
                         if (response.len == 0) {
+                            $(".search-box-drop-menu").hide();
                             return;
                         } else {
                             $(".search-box-drop-menu").css("display", "block");
                             var str = '';
-                            for (var i = 0; i < len; i++) {
+                            for (var i = 0; i < response.len && i < 10; i++) {
                                 str += "<li>" + response.data[i] + "</li>";
                             }
                             $(".search-box-drop-menu ul").html(str);
+                            $(".search-box-drop-menu").show();
                         }
                     }
                 });
@@ -196,40 +102,19 @@
         $("#searchsymbol").bind("keypress", function (event) {
             if (event.keyCode == '13') {
                 var symbolKey = $("#searchsymbol").val();
-                var fromDate = 20160104; //The min date
-                var toDate = 20160324; // The Max date
-                var hData = getHistoryData(symbolKey, fromDate, toDate);
-                if (hData == null || hData == "") {
-                    return;
-                } else {
-                    var txt = $(this).val();
-                    $(".stock-Infro").css("display", "block").html(txt);
-                }
-
-                //$(this).val("");
+                getSummaryData(symbolKey);
             }
         });
 
         $("#search").on("click", function (event) {
             var symbolKey = $("#searchsymbol").val();
-            var fromDate = 20160104; //The min date
-            var toDate = 20160324; // The Max date
-            var hData2 = getHistoryData(symbolKey, fromDate, toDate);
-            if (hData2 == null || hData2 == "") {
-                return;
-            } else {
-                var txt = $("#searchsymbol").val();
-                $(".stock-Infro").css("display", "block").html(txt);
-            }
+            getSummaryData(symbolKey);
         });
 
         $("button.apply").on("click", function (event) {
             var symbolKey = $("#searchsymbol").val();
-            var fromDate = $("#from").val().replace(/-/g, "");
-            var toDate = $("#to").val().replace(/-/g, "");
-            //console.log(fromDate);
-            //console.log(toDate);
-            getHistoryData(symbolKey, fromDate, toDate);
+            //var fromDate = $("#from").val().replace(/-/g, "");
+            //var toDate = $("#to").val().replace(/-/g, "");
         });
         $(".show-title-box ul li").click(function () {
             $(this).siblings().removeClass("active");
@@ -237,17 +122,22 @@
         });
 
 
-
-        $.ajax({
-            url: "/Summary/GetSummaryData",
-            type: "POST",
-            dataType: 'json',
-            data: { symbol: $(".stock-Infro").val() },
-            success: function (data) {
-                // split the data set into ohlc and volume
-                var ohlc = [],
-                    volume = [],
-                    dataLength = data.length,
+        function getSummaryData(symbolKey) {
+            $.ajax({
+                url: "/Summary/GetSummaryData",
+                type: "POST",
+                dataType: 'json',
+                data: { symbol: symbolKey },
+                success: function (data) {
+                    if (data.len == 0) {
+                        alert("No Data Set");
+                        return;
+                    }
+                    // split the data set into ohlc and volume
+                    var ohlc = [],
+                        volume = [],
+                        dataLength = data.len,
+                        data = data.data;
                     // set the allowed units for data grouping
                     groupingUnits = [[
                         'week',                         // unit name
@@ -257,85 +147,86 @@
                         [1, 2, 3, 4, 6]
                     ]],
 
-                    i = 0;
+                        i = 0;
 
-                for (i; i < dataLength; i += 1) {
-                    ohlc.push([
-                        data[i]["DateTime"], // the date
-                        data[i]["Open"], // open
-                        data[i]["High"], // high
-                        data[i]["Low"], // low
-                        data[i]["Close"] // close
-                    ]);
+                    for (i; i < dataLength; i += 1) {
+                        ohlc.push([
+                            data[i]["DateTime"], // the date
+                            data[i]["Open"], // open
+                            data[i]["High"], // high
+                            data[i]["Low"], // low
+                            data[i]["Close"] // close
+                        ]);
 
-                    volume.push([
-                        data[i]["DateTime"], // the date
-                        data[i]["Volume"] // the volume
-                    ]);
+                        volume.push([
+                            data[i]["DateTime"], // the date
+                            data[i]["Volume"] // the volume
+                        ]);
+                    }
+
+
+                    // create the chart
+                    Highcharts.stockChart('summary-container', {
+
+                        rangeSelector: {
+                            selected: 1
+                        },
+
+                        title: {
+                            text: symbolKey + ' Summary'//symbol
+                        },
+
+                        yAxis: [{
+                            labels: {
+                                align: 'right',
+                                x: -3
+                            },
+                            title: {
+                                text: 'OHLC'
+                            },
+                            height: '60%',
+                            lineWidth: 2,
+                            resize: {
+                                enabled: true
+                            }
+                        }, {
+                            labels: {
+                                align: 'right',
+                                x: -3
+                            },
+                            title: {
+                                text: 'Volume'
+                            },
+                            top: '65%',
+                            height: '35%',
+                            offset: 0,
+                            lineWidth: 2
+                        }],
+
+                        tooltip: {
+                            split: true
+                        },
+
+                        series: [{
+                            type: 'candlestick',
+                            name: symbolKey,//symbol
+                            data: ohlc,
+                            dataGrouping: {
+                                units: groupingUnits
+                            }
+                        }, {
+                            type: 'column',
+                            name: 'Volume',
+                            data: volume,
+                            yAxis: 1,
+                            dataGrouping: {
+                                units: groupingUnits
+                            }
+                        }]
+                    });
                 }
-
-
-                // create the chart
-                Highcharts.stockChart('summary-container', {
-
-                    rangeSelector: {
-                        selected: 1
-                    },
-
-                    title: {
-                        text: 'AAPL Summary'//symbol
-                    },
-
-                    yAxis: [{
-                        labels: {
-                            align: 'right',
-                            x: -3
-                        },
-                        title: {
-                            text: 'OHLC'
-                        },
-                        height: '60%',
-                        lineWidth: 2,
-                        resize: {
-                            enabled: true
-                        }
-                    }, {
-                        labels: {
-                            align: 'right',
-                            x: -3
-                        },
-                        title: {
-                            text: 'Volume'
-                        },
-                        top: '65%',
-                        height: '35%',
-                        offset: 0,
-                        lineWidth: 2
-                    }],
-
-                    tooltip: {
-                        split: true
-                    },
-
-                    series: [{
-                        type: 'candlestick',
-                        name: 'AAPL',//symbol
-                        data: ohlc,
-                        dataGrouping: {
-                            units: groupingUnits
-                        }
-                    }, {
-                        type: 'column',
-                        name: 'Volume',
-                        data: volume,
-                        yAxis: 1,
-                        dataGrouping: {
-                            units: groupingUnits
-                        }
-                    }]
-                });
-            }
-        });
+            });
+        }
 
     })
 </script>

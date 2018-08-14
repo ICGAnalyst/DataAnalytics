@@ -149,8 +149,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ChartController.cs" />
     <Compile Include="Controllers\HistoricController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SearchSymbolController.cs" />
     <Compile Include="Controllers\SummaryController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -180,6 +180,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\layoutstyle.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\bg-img.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -203,6 +204,9 @@
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\cufon-yui.js" />
     <Content Include="Scripts\cuf_run.js" />
+    <Content Include="Scripts\export-data.js" />
+    <Content Include="Scripts\exporting.js" />
+    <Content Include="Scripts\highstock.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
@@ -224,9 +228,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Chart\Index.cshtml" />
     <None Include="Views\Historic\Index.cshtml" />
     <Content Include="Views\Summary\Index.cshtml" />
     <Content Include="Views\WatchLists\Index.cshtml" />

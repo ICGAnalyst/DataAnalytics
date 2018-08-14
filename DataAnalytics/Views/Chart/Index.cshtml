@@ -1,0 +1,127 @@
+﻿
+@{
+    ViewBag.Title = "Chart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="search-box" style="position:absolute;top:100px;width:100%">
+    <div class="search-box-c">
+        <div class="form">
+            <input type="text" placeholder="请输入您要搜索的内容..." id="searchsymbol">
+            <button type="submit" id="search"></button>
+        </div>
+        <div class="search-box-drop-menu">
+            <ul>
+                <li>11</li>
+                <li>22</li>
+                <li>33</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="stock-Infro">1111111</div>
+<div class="show-box" style="width:100%;position: absolute;top:200px;">
+    <div class="show-box-c">
+        <div class="show-title-box">
+            <ul>
+                <li> <a href="#">Home</a></li>
+                <li><a href="#">Summary</a></li>
+                <li class="active"><a href="/Chart">Chart</a></li>
+                <li><a href="#">History Data</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="show-chart-box">
+        <div class="show-chart-box-c" style="width:970px;padding: 10px">
+            <div class="calendar" style="float:left">
+                <label for="from">From</label>
+                <input type="text" id="from" name="from" style="background-image: radial-gradient(73% 147%, #EADFDF 59%, #ECE2DF 100%), radial-gradient(91% 146%, rgba(255,255,255,0.50) 47%, rgba(0,0,0,0.50) 100%); background-blend-mode: screen;">
+                <label for="to">To</label>
+                <input type="text" id="to" name="to" style="background-image: radial-gradient(73% 147%, #EADFDF 59%, #ECE2DF 100%), radial-gradient(91% 146%, rgba(255,255,255,0.50) 47%, rgba(0,0,0,0.50) 100%); background-blend-mode: screen;">
+            </div>
+            <button class="apply">Apply</button>
+        </div>
+        <div>
+            <input type="text" id="itemid" />
+            <button id="add" onclick="add()">Add</button>
+        </div>
+        <div id="item">
+
+        </div>
+        <div id="container" style="height: 400px; min-width: 310px"></div>
+    </div>
+
+</div>
+
+@section Footer{
+    <script>
+        var seriesOptions = [],
+            seriesCounter = 0,
+            names = [];
+        function add() {
+            var additem = document.getElementById("itemid").value;
+            names.add(additem);
+            $("#item").append("<label>" + additem + "</label><br/>");
+        }
+        function createChart() {
+
+            Highcharts.stockChart('container', {
+
+                rangeSelector: {
+                    selected: 4
+                },
+
+                yAxis: {
+                    labels: {
+                        formatter: function () {
+                            return (this.value > 0 ? ' + ' : '') + this.value + '%';
+                        }
+                    },
+                    plotLines: [{
+                        value: 0,
+                        width: 2,
+                        color: 'silver'
+                    }]
+                },
+
+                plotOptions: {
+                    series: {
+                        compare: 'percent',
+                        showInNavigator: true
+                    }
+                },
+
+                tooltip: {
+                    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.change}%)<br/>',
+                    valueDecimals: 2,
+                    split: true
+                },
+
+                series: seriesOptions
+            });
+        }
+
+        $.each(names, function (i, name) {
+            ajax({
+                url: "/Summary/GetSummaryData",
+                data: { symbol: name },
+                success: function (data) {
+                    data = data.data;
+                    seriesOptions[i] = {
+                        name: name,
+                        data: data
+                    };
+
+                    // As we're loading the data asynchronously, we don't know what order it will arrive. So
+                    // we keep a counter and create the chart when all the data is loaded.
+                    seriesCounter += 1;
+                    if (seriesCounter === names.length) {
+                        createChart();
+                    }
+                }
+            });
+            //$.getJSON( name.toLowerCase() + '.json', function (data) {          
+        })
+    </script>
+}
+
