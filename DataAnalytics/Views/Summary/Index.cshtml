@@ -62,7 +62,7 @@
             return result;
         }
 
-        $("#searchsymbol").bind("input propertychange change", function (event) {
+        $("#searchsymbol").bind("keyup", function (event) {
             // $("#input_test2").val($("#searchsymbol").val());
             var getSearchSymbol = $("#searchsymbol").val();
             var t = Trim(getSearchSymbol, "g");
@@ -105,7 +105,11 @@
                 getSummaryData(symbolKey);
             }
         });
-
+        $("#searchsymbol").on("blur", function () {
+            setTimeout(function () {
+                $(".search-box-drop-menu").hide();
+            }, 100);
+        })
         $("#search").on("click", function (event) {
             var symbolKey = $("#searchsymbol").val();
             getSummaryData(symbolKey);

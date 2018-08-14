@@ -4,6 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<!--
 <div class="search-box" style="position:absolute;top:100px;width:100%">
     <div class="search-box-c">
         <div class="form">
@@ -12,13 +13,11 @@
         </div>
         <div class="search-box-drop-menu">
             <ul>
-                <li>11</li>
-                <li>22</li>
-                <li>33</li>
             </ul>
         </div>
     </div>
 </div>
+-->
 <div class="stock-Infro">1111111</div>
 <div class="show-box" style="width:100%;position: absolute;top:200px;">
     <div class="show-box-c">
@@ -42,7 +41,7 @@
             <button class="apply">Apply</button>
         </div>
         <div>
-            <input type="text" id="itemid" />
+            <input type="text" id="item" />
             <button id="add" onclick="add()">Add</button>
         </div>
         <div id="item">
@@ -54,6 +53,36 @@
 </div>
 
 @section Footer{
+    <script>
+        $(function () {
+            'user strict';
+
+            $("#from").datepicker({
+                defaultDate: "+1w",
+                changeMonth: true,
+                changeYear: true,
+                minDate: new Date(2016, 1 - 1, 4),
+                maxDate: new Date(2016, 3 - 1, 24),
+                onClose: function (selectedDate) {
+                    $("#to").datepicker("option", "minDate", selectedDate);
+                    $("#from").datepicker("option", "dateFormat", "yy-mm-dd");
+                }
+            });
+            $("#to").datepicker({
+                defaultDate: "+1w",
+                changeMonth: true,
+                changeYear: true,
+                minDate: new Date(2016, 1 - 1, 4),
+                maxDate: new Date(2016, 3 - 1, 24),
+                onClose: function (selectedDate) {
+                    $("#from").datepicker("option", "maxDate", selectedDate);
+                    $("#to").datepicker("option", "dateFormat", "yy-mm-dd");
+                }
+            });
+
+        })
+    </script>
+
     <script>
         var seriesOptions = [],
             seriesCounter = 0,
@@ -120,7 +149,7 @@
                     }
                 }
             });
-            //$.getJSON( name.toLowerCase() + '.json', function (data) {          
+            //$.getJSON( name.toLowerCase() + '.json', function (data) {
         })
     </script>
 }
