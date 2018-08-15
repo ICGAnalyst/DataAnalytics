@@ -24,15 +24,21 @@
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://cdn.bootcss.com/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
     <link href="~/Content/tooplate_style.css" rel="stylesheet" type="text/css" />
-    <script src="~/Scripts/cookie-operation.js"></script>
+    <script src="~/Scripts/jquery.cookie.min.js"></script>
 
 </head>
 <body>
     <div id="tooplate_wrapper">
         <div id="top">
             <div class="head-right-button">
-                <a class="SignIn-a" href="/User/Login">Sign In</a>&nbsp;&nbsp;&nbsp;
-                <a class="SignUp-a" href="/User/Register">Sign Up</a>
+                <div class="NotLogin" style="display:none">
+                    <a class="SignIn-a" href="/User/Login">Sign In</a>&nbsp;&nbsp;&nbsp;
+                    <a class="SignUp-a" href="/User/Register">Sign Up</a>
+                </div>
+                <div class="IsLogin" style="display:none">
+                    <span id="username"></span>&nbsp;&nbsp;&nbsp;
+                    <a class="SignUp-a" href="/User/Register">Exit</a>
+                </div>
             </div>
         </div>
 
@@ -71,6 +77,14 @@
         $(function () {
             'user strict';
 
+            var username = $.cookie('username');
+            console.log(username);
+            if (username == null || username == "") {
+                $(".NotLogin").show();
+            } else {
+                $(".IsLogin").show();
+                $("#username").html(username);
+            }
 
             $.ajax({
                 url: "/SearchSymbol/GetSearchSymbol",

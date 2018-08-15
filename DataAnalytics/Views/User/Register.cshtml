@@ -83,7 +83,7 @@
         </section>
     </div>
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
-    <script src="~/Scripts/cookie-operation.js"></script>
+    <script src="~/Scripts/jquery.cookie.min.js"></script>
     <script>
         $(function () {
             $("input[type=submit]").click(function () {
@@ -124,7 +124,8 @@
                                         alert("wrong password");
                                     } else {
                                         //setCookie("userid", userid);
-                                        setCookie("username", username);
+                                        //setCookie("username", username);
+                                        $.cookie('username', username, { path: '/' });
                                         window.location.href = "/WatchLists";
                                     }
                                 }

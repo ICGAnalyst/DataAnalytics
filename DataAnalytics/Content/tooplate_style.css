@@ -7,16 +7,16 @@ http://www.tooplate.com/view/2023-mini-blue
 */
 
 body {
-	margin: 0;
-	padding: 0;
-	color: #75859c;
-	font-family: Tahoma, Geneva, sans-serif;
-	font-size: 13px;
-	line-height: 1.7em; 
-	background-color: #203048;
-	background-image: url(/Images/tooplate_body.jpg);
-	background-position: top center;
-	background-repeat: no-repeat
+    margin: 0;
+    padding: 0;
+    color: #dddddd;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 13px;
+    line-height: 1.7em;
+    background-color: #203048;
+    background-image: url(/Images/tooplate_body.jpg);
+    background-position: top center;
+    background-repeat: no-repeat
 }
 
 a, a:link, a:visited { 
@@ -136,9 +136,9 @@ h6 { font-size: 14px; margin: 0 0 5px; padding: 0; }
 
    .head-right-button{
 	    float: right;
-    right: 20px;
-    position: relative;
-    top: 10px;
+        right: 20px;
+        position: relative;
+        top: 10px;
 	}   
     .search-box-c {
 	 float: right;
@@ -390,3 +390,27 @@ color: #445db7;
 #tooplate_footer a {
 	color: #fff;
 }
+
+.show-chart-box-c button {
+    margin-right: 20px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    float: right;
+    width: 70px;
+    height: 35px;
+    background-color: #97aaee;
+    color: #fff;
+    border-radius: 5px;
+}
+
+    .show-chart-box-c button:hover {
+        margin-right: 20px;
+        padding-bottom: 5px;
+        padding-top: 5px;
+        float: right;
+        width: 70px;
+        height: 35px;
+        background-color: #3859b8;
+        color: #fff;
+        border-radius: 5px;
+    }                

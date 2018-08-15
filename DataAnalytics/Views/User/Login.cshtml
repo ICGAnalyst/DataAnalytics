@@ -84,20 +84,21 @@
         </section>
     </div>
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
-    <script src="~/Scripts/cookie-operation.js"></script>
+    <script src="~/Scripts/jquery.cookie.min.js"></script>
     <script>
               $(function(){
                   $("input[type=submit]").click(function () {
-                      console.log("click");
+                      var username = $("#username").val();
+                      var password = $("#password").val();
                       getSignInData(username,password);
                 });
                 function getSignInData(username,password){
                     $.ajax({
                         url:"/User/Login",
                         type:"POST",
-                        data:{
-                            username:$("#username").val(),
-                            userpass:$("#password").val()
+                        data: {
+                            username: username,
+                            userpass: password
                         },
                         dataType:"json",
                         success: function (response) {
@@ -109,7 +110,10 @@
                                 alert("wrong password");
                             } else {
                                 //setCookie("userid", response.code);
-                                setCookie("username", username);
+                                //setCookie("username", username);
+                                //var u = getCookie("username");
+                                //console.log(u);
+                                $.cookie('username', username, { path: '/' });
                                 window.location.href = "/WatchLists";
                             }
                         }
