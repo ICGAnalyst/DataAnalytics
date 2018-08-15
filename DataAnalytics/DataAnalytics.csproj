@@ -165,6 +165,7 @@
     </Compile>
     <Compile Include="Models\Historic.cs" />
     <Compile Include="Models\HistoricBusiness.cs" />
+    <Compile Include="Models\PortfolioBusiness.cs" />
     <Compile Include="Models\SearchSymbolBusiness.cs" />
     <Compile Include="Models\SummaryData.cs" />
     <Compile Include="Models\SummaryBusiness.cs" />
@@ -183,7 +184,9 @@
     <Content Include="Content\css\animate-custom.css" />
     <Content Include="Content\css\demo.css" />
     <Content Include="Content\css\style.css" />
+    <Content Include="Content\jquery.lightbox-0.5.css" />
     <Content Include="Content\layoutstyle.css" />
+    <Content Include="Content\tooplate_style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\BebasNeue-webfont.svg" />
     <Content Include="fonts\bg-img.svg" />
@@ -193,7 +196,15 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\tooplate_header.jpg" />
+    <Content Include="Images\logo.png" />
     <Content Include="Images\menu_a.gif" />
+    <Content Include="Images\tooplate_body.jpg" />
+    <Content Include="Images\tooplate_contentbg.jpg" />
+    <Content Include="Images\tooplate_list.jpg" />
+    <Content Include="Images\tooplate_logo.png" />
+    <Content Include="Images\tooplate_menubar.png" />
+    <Content Include="Images\tooplate_menu_hover.png" />
     <Content Include="Scripts\arial.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -229,6 +240,9 @@
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.lightbox-0.5.js" />
+    <Content Include="Scripts\jquery.localscroll-min.js" />
+    <Content Include="Scripts\jquery.scrollTo-min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -249,7 +263,10 @@
     <None Include="Views\Historic\Index.cshtml" />
     <Content Include="Views\Summary\Index.cshtml" />
     <Content Include="Views\WatchLists\Index.cshtml" />
-    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\User\Login.cshtml">
+      <BrowseToURL>~/User/Login</BrowseToURL>
+    </Content>
+    <Content Include="Views\User\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

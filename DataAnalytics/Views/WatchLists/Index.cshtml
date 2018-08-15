@@ -4,28 +4,10 @@
 @{
     ViewBag.Title = "WatchLists";
 }
-<div class="search-box" style="position:absolute;top:100px;width:100%" ">
-    <div class="search-box-c">
-        <div class="form">
-            <input type="text" placeholder="Please search..." id="searchsymbol" data-provide="typeahead" >
-            <input type="hidden">
-            <button id="search"></button>
-        </div>
-        <div class="search-box-drop-menu">
-            <ul></ul>
-        </div>
-    </div>
-</div>
-<div class="show-box" style="width:100%;position: absolute;top:200px;">
+
+<div>
     <div class="show-box-c">
-        <div class="show-title-box">
-            <ul style="padding-left: 0px">
-                <li class="active"><a href=" ">Home</a></li>
-                <li><a href="/Summary">Summary</a></li>
-                <li><a href="/Chart">Chart</a></li>
-                <li><a href="/Historic">History Data</a></li>
-            </ul>
-        </div>
+        
     </div>
     <div class="show-chart-box">
         <div class="show-chart-box-c" style="width:970px;padding: 10px">
@@ -42,7 +24,7 @@
             <button class="apply">Apply</button>
         </div>
         <div style="margin:40px 10px">
-            <table id="data" class="display" style="width:970px;height:1000px;padding :20px 20px ;">
+            <table id="data" class="display" style="padding :20px 20px ;">
                 <thead>
                     <tr>
                         <th>Symbol</th>

@@ -5,7 +5,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
-    <link href="~/Content/layoutstyle.css" rel="stylesheet" />
+    <link href="~/Content/jquery.lightbox-0.5.css" rel="stylesheet" type="text/css" media="screen" />
+    <script type='text/javascript' src='~/Scripts/jquery-3.3.1.min.js'></script>
+    <script type='text/javascript' src='~/Scripts/jquery.scrollTo-min.js'></script>
+    <script type='text/javascript' src='~/Scripts/jquery.localscroll-min.js'></script>
+    <script type="text/javascript" src="~/Scripts/jquery.lightbox-0.5.js"></script>
     <link href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <script type="text/javascript" src="~/Scripts/cufon-yui.js"></script>
     <script type="text/javascript" src="~/Scripts/arial.js"></script>
@@ -19,236 +23,78 @@
     <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://cdn.bootcss.com/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
+    <link href="~/Content/tooplate_style.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/cookie-operation.js"></script>
-    <!--
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            color: #000;
-            font: normal 12px/1.8em Arial, Helvetica, sans-serif;
-            background-color: #e2edf0;
-        }
 
-        ul {
-            margin: 0;
-            padding: 0;
-            list-style: none;
-        }
-
-        .bg-box {
-            height: 700px;
-            position: fixed;
-            width: 100%;
-            background-image: url(/fonts/bg-img.svg);
-        }
-
-        .form {
-            position: relative;
-            width: 400px;
-            margin: 0 auto;
-        }
-
-        input, button {
-            border: none;
-            outline: none;
-        }
-
-        input {
-            height: 30px;
-            padding-left: 13px;
-        }
-
-        .logo-box {
-            float: left;
-        }
-
-        .sign-in-box button {
-            position: absolute;
-            float: right;
-            right: 20px;
-            top: 40px;
-            margin-top: 10px;
-            margin-right: 20px;
-            padding-bottom: 5px;
-            padding-top: 5px;
-            width: 70px;
-            height: 35px;
-        }
-
-        .search-box-c .form {
-            height: 20px;
-            z-index: 10;
-        }
-
-        .search-box-c input {
-            border-radius: 42px;
-            border: 2px solid #09203f;
-            background-image: linear-gradient(to top, #d5d4d0 0%, #d5d4d0 1%, #eeeeec 31%, #efeeec 75%, #e9e9e7 100%);
-            transition: .3s linear;
-            float: right;
-            width: 100%;
-        }
-
-            .search-box-c input:focus {
-                width: 400px;
-            }
-
-        .search-box-c button {
-            background: none;
-            top: -2px;
-            right: 0;
-            height: 39px;
-            width: 42px;
-            cursor: pointer;
-            position: absolute;
-        }
-
-            .search-box-c button:before {
-                content: "\f002";
-                font-family: FontAwesome;
-                color: #09203f;
-            }
-
-        .search-box-drop-menu {
-            position: relative;
-            z-index: 100;
-            position: relative;
-            z-index: 100;
-            width: 390px;
-            margin: 0 auto;
-            left: -10px;
-            z-index: 3;
-            display: none;
-        }
-
-            .search-box-drop-menu ul {
-                line-height: 16px;
-                background-image: linear-gradient(to top, #d5d4d0 0%, #d5d4d0 1%, #eeeeec 31%, #efeeec 75%, #e9e9e7 100%);
-                color: #0395CC;
-                border: solid #09203f 2px;
-                border-radius: 0 0 12px 12px;
-                padding-top: 10px;
-            }
-
-                .search-box-drop-menu ul li {
-                    font-size: 15px;
-                    padding: 16px;
-                }
-
-                    .search-box-drop-menu ul li:hover {
-                        font-size: 15px;
-                        padding: 16px;
-                        background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
-                        color: #d5d4d0;
-                    }
-
-                    .search-box-drop-menu ul li:last-child:hover {
-                        font-size: 15px;
-                        padding: 16px;
-                        background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
-                        color: #d5d4d0;
-                        border-radius: 0 0 9px 9px;
-                    }
-
-        .show-box-c {
-            position: relative;
-            margin: 0 auto;
-            padding: 0;
-            width: 970px;
-            background: repeat-x top;
-            background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
-            height: 63px;
-        }
-
-        .show-title-box {
-            margin: 0;
-            padding: 0;
-            float: left;
-        }
-
-            .show-title-box ul {
-                margin: 0 auto;
-                width: 800px;
-                position: relative;
-                height: 40px;
-            }
-
-                .show-title-box ul li {
-                    list-style: none;
-                    float: left;
-                    margin: 0;
-                }
-
-                    .show-title-box ul li a {
-                        display: block;
-                        margin: 0;
-                        padding: 20px 24px;
-                        color: #52aec6;
-                        text-decoration: none;
-                        font-size: 13px;
-                        text-transform: uppercase;
-                    }
-
-                        .show-title-box ul li.active a, .show-title-box ul li a:hover {
-                            background: #a5bbc0 url(/Images/menu_a.gif) repeat-x center;
-                            color: #fff;
-                            border-bottom: solid #3f7486 3px;
-                        }
-
-        .show-chart-box {
-            position: relative;
-            margin: 0 auto;
-            width: 970px;
-            background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
-        }
-
-        #historyDataTable_filter {
-            display: none;
-        }
-
-        #historyDataTable_length {
-            margin-top: 15px;
-            font-size: 16px;
-        }
-
-        .show-chart-box-c button {
-            margin-right: 20px;
-            padding-bottom: 5px;
-            padding-top: 5px;
-            float: right;
-            width: 70px;
-            height: 35px;
-            background: #52aec6 url(/Images/menu_a.gif) repeat-x center;
-            color: #fff;
-        }
-
-        .stock-Infro {
-            width: 970px;
-            position: relative;
-            margin: 0 auto;
-            top: 140px;
-            background-image: linear-gradient(to top, #d5d4d0 0%, #d5d4d0 1%, #eeeeec 31%, #efeeec 75%, #e9e9e7 100%);
-            height: 60px;
-        }
-    </style>
-        -->
 </head>
 <body>
-    <div class="main-box">
-        <div class="bg-box">
-        </div>
-        <div class="title-box">
-            <div class="logo-box">
-                <h1 style="margin-left: 20px; margin-top: 5px;">logo</h1>
-            </div>
-            <div class="sign-in-box">
-                <button>Sign In</button>
+    <div id="tooplate_wrapper">
+        <div id="top">
+            <div class="head-right-button">
+                <a class="SignIn-a" href="/User/Login">Sign In</a>&nbsp;&nbsp;&nbsp;
+                <a class="SignUp-a" href="/User/Register">Sign Up</a>
             </div>
         </div>
-        @RenderBody()
-    </div>
-    <footer>@RenderSection("Footer", false)</footer>
+
+        <div id="templatmeo_header">
+            <div id="site_title">
+                <h1><a href="#">Mini Blue</a></h1>
+            </div>
+
+            <div id="tooplate_menu">
+                <ul>
+                    <li><a href="/WatchLists">Home</a></li>
+                    <li><a href="/Summary">Summary</a></li>
+                    <li><a href="/Chart">Chart</a></li>
+                    <li class="last"><a href="/Historic">History Data</a></li>
+
+                </ul>
+                <div class="search-box-c" id="search-box-c">
+                    <div class="form">
+                        <input type="text" placeholder="Please search..." id="searchsymbol" data-provide="typeahead">
+                        <button  id="search"></button>
+                    </div>
+                </div>
+            </div> <!-- end of tooplate_menu -->
+
+        </div>
+
+        <div id="tooplate_main">
+
+            <div class="symbolInfo"></div>
+            <div class="content_box">
+                @RenderBody()
+            </div> <!-- end of a content box -->
+        </div> <!-- end of wrapper -->
+       </div>
+    <script>
+        $(function () {
+            'user strict';
+
+
+            $.ajax({
+                url: "/SearchSymbol/GetSearchSymbol",
+                type: "POST",
+                data: {
+                    searchKey: ""
+                },
+                dataType: "json",
+                crossDomain: true,
+                success: function (response) {
+                    if (response.len == 0) {
+                        return;
+                    } else {
+                        $("#searchsymbol").typeahead({ source: response.data });
+                    }
+                }
+            });
+
+            $("#tooplate_menu > ul li a").click(function () {
+                $(this).parent().siblings().children().removeClass("active");
+                $(this).addClass("active");
+            });
+        })
+    </script>
+        <footer>@RenderSection("Footer", false)</footer>
 </body>
 </html>

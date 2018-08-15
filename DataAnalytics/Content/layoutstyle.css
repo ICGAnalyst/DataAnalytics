@@ -39,17 +39,18 @@ input{
     
     float: left;
 }
-.sign-in-box button{
+.sign-in-box a {
     position: absolute;
     float: right;
     right: 20px;
-    top:40px;
+    top: 40px;
     margin-top: 10px;
-    margin-right:20px;
+    margin-right: 20px;
     padding-bottom: 5px;
     padding-top: 5px;
     width: 70px;
     height: 35px;
+    color: #cdd9e4;
 }
 
 .search-box-c .form {

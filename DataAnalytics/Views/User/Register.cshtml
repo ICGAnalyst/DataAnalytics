@@ -1,0 +1,143 @@
+﻿
+@{
+    ViewBag.Title = "Register";
+    Layout = null;
+}
+<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6 lt8"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7 lt8"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8 lt8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en" class="no-js">
+ <!--<![endif]-->
+<head>
+    <meta charset="UTF-8" />
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">  -->
+    <title>LogUp</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Login and Registration Form with HTML5 and CSS3" />
+    <meta name="keywords" content="html5, css3, form, switch, animation, :target, pseudo-class" />
+    <meta name="author" content="Codrops" />
+
+    <link rel="stylesheet" type="text/css" href="~/Content/css/demo.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/css/animate-custom.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/css/style.css" />
+    <style>
+        .sign-in-box a {
+            position: absolute;
+            float: right;
+            margin-right: 20px;
+            padding-bottom: 5px;
+            padding-top: 5px;
+            width: 70px;
+            height: 35px;
+        }
+
+        .Exit-a {
+            right: 20px;
+            top: 20px;
+        }
+
+        .SignIn-a {
+            right: 80px;
+            top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <header>
+            <div class="sign-in-box">
+                <a class="Exit-a" href="JavaScript:history.go(-1)">Back</a>
+                <a class="SignIn-a" href="/User/Login">SignIn</a>
+            </div>
+        </header>
+        <section>
+            <div id="container_demo">
+                <a class="hiddenanchor" id="toregister"></a>
+                <a class="hiddenanchor" id="tologin"></a>
+                <div id="wrapper">
+                    <div id="login" class="animate form">
+                        <div>
+                            <h1>log up</h1>
+                            <p>
+                                <label for="username" class="uname" data-icon="u"> Your email or username </label>
+                                <input id="username" name="username" maxlength=20 required oninvalid="setCustomValidity('Please input your name!');" type="text" placeholder="myusername or mymail@mail.com" />
+                            </p>
+                            <p>
+                                <label for="password" class="youpasswd" data-icon="p"> Your password </label>
+                                <input id="password" name="password" maxlength=10 required oninvalid="setCustomValidity('Please input password!');" type="password" placeholder="eg. X8df!90EO" />
+                            </p>
+
+                            <p class="login button">
+                                <input type="submit" value="SignUp" />
+                            </p>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/cookie-operation.js"></script>
+    <script>
+        $(function () {
+            $("input[type=submit]").click(function () {
+                var username = $("#username").val();
+                var password = $("#password").val();
+                getSignInData(username, password);
+            });
+            function getSignInData(username, password) {
+                $.ajax({
+                    url: "/User/Register",
+                    type: "POST",
+                    data: {
+                        username: username,
+                        userpass: password
+                    },
+                    dataType: "json",
+                    success: function (response) {
+                        console.log(response);
+                        if (response.code == -1) {
+                            alert("Unknown error");
+                        } else if (response.code == 0) {
+                            alert("User exist");
+                        } else if (response.code > 0) {
+                            $.ajax({
+                                url: "/User/Login",
+                                type: "POST",
+                                data: {
+                                    username: username,
+                                    userpass: password,
+                                },
+                                dataType: "json",
+                                success: function (response) {
+                                    //console.log(response.code);
+                                    if (response.code == -1) {
+                                        //提示框
+                                        alert("Unknown error");
+                                    } else if (response.code == 0) {
+                                        alert("wrong password");
+                                    } else {
+                                        //setCookie("userid", userid);
+                                        setCookie("username", username);
+                                        window.location.href = "/WatchLists";
+                                    }
+                                }
+                            })
+                        }
+                    }
+                }
+
+
+                );
+            }
+        });
+    </script>
+</body>
+</html>
+

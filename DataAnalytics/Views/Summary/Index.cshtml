@@ -4,43 +4,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-<div class="search-box" style="position:absolute;top:100px;width:100%" ">
-    <div class="search-box-c">
-        <div class="form">
-            <input type="text" placeholder="Please search..." id="searchsymbol" data-provide="typeahead">
-            <input type="hidden">
-            <button id="search"></button>
-        </div>
-        @*<div class="search-box-drop-menu">
-            <ul></ul>
-        </div>*@
-    </div>
-</div>
 <div class="stock-Infro"></div>
-<div class="show-box" style="width:100%;position: absolute;top:200px;">
+<div class="show-box" style="width:100%;">
     <div class="show-box-c">
-        <div class="show-title-box">
-            <ul>
-                <li><a href="/WatchLists">Home</a></li>
-                <li class="active"><a href="#">Summary</a></li>
-                <li><a href="/Chart">Chart</a></li>
-                <li><a href="/Historic">History Data</a></li>
-            </ul>
-        </div>
+        
     </div>
     <div class="show-chart-box">
-        <!--
-        <div class="show-chart-box-c" style="width:970px;padding: 10px">
-            <div class="calendar" style="float:left">
-                <label for="from">From</label>
-                <input type="text" id="from" name="from" style="background-image: radial-gradient(73% 147%, #EADFDF 59%, #ECE2DF 100%), radial-gradient(91% 146%, rgba(255,255,255,0.50) 47%, rgba(0,0,0,0.50) 100%); background-blend-mode: screen;">
-                <label for="to">To</label>
-                <input type="text" id="to" name="to" style="background-image: radial-gradient(73% 147%, #EADFDF 59%, #ECE2DF 100%), radial-gradient(91% 146%, rgba(255,255,255,0.50) 47%, rgba(0,0,0,0.50) 100%); background-blend-mode: screen;">
-            </div>
-            <button class="apply">Apply</button>
-        </div>
-        -->
         <div id="summary-container" style="height: 400px; min-width: 310px"></div>
     </div>
 
@@ -61,6 +30,7 @@
         }
         $(".stock-Infro").html(symbol);
 
+
         $.ajax({
             url: "/SearchSymbol/GetSearchSymbol",
             type: "POST",
@@ -80,6 +50,8 @@
 
         getSummaryData(symbol.toLowerCase())
 
+
+        // *******************************************8
         function getQueryString(name) {
             var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
             var r = window.location.search.substr(1).match(reg);
@@ -93,14 +65,18 @@
                 dataType: 'json',
                 data: { symbol: symbolKey },
                 success: function (data) {
-                    symbol = symbolKey.toUpperCase();
-                    $(".stock-Infro").html(symbol);
-
                     if (data.len == 0) {
                         alert("No Data Set");
                         return;
                     }
+                    // 处理url
+                    symbol = symbolKey.toUpperCase();
+                    var url = window.location.href.split("=")[0];
+                    console.log(url);
+                    $(".stock-Infro").html(symbol);
+                    window.history.pushState({}, 0, url + "=" + symbol);
                     // split the data set into ohlc and volume
+
                     var ohlc = [],
                         volume = [],
                         dataLength = data.len,
@@ -201,24 +177,7 @@
             $(this).addClass("active");
         });
 
-        //$("#searchsymbol").bind("keypress", function (event) {
-        //    if (event.keyCode == '13') {
-        //        var symbolKey = $("#searchsymbol").val();
-        //        getSummaryData(symbolKey);
-        //    }
-        //});
 
-        $("#searchsymbol").on("blur", function () {
-            setTimeout(function () {
-                $(".search-box-drop-menu").hide();
-            }, 100);
-        });
-
-        $(".search-box-drop-menu").on("click", "ul li", function () {
-            console.log(".search-box-drop-menu click:", $("#searchsymbol").val);
-            $("#searchsymbol").val($(this).html());
-            $(".search-box-drop-menu").hide();
-        });
 
         function Trim(str, is_global) {
             var result;
@@ -229,51 +188,18 @@
             return result;
         };
 
-        $("#searchsymbol").bind("keyup", function (event) {
-            // $("#input_test2").val($("#searchsymbol").val());
-            var getSearchSymbol = $("#searchsymbol").val();
-            var t = Trim(getSearchSymbol, "g");
-            if (t == null || t == "") {
-                return;
-            } else {
-                $.ajax({
-                    url: "/SearchSymbol/GetSearchSymbol",
-                    type: "POST",
-                    data: {
-                        searchKey: t
-                    },
-                    dataType: "json",
-                    crossDomain: true,
-                    success: function (response) {
-                        if (response.len == 0) {
-                            $(".search-box-drop-menu").hide();
-                            return;
-                        } else {
-                            $(".search-box-drop-menu").css("display", "block");
-                            var str = '';
-                            for (var i = 0; i < response.len && i < 10; i++) {
-                                str += "<li>" + response.data[i] + "</li>";
-                            }
-                            $(".search-box-drop-menu ul").html(str);
-                            $(".search-box-drop-menu").show();
-                        }
-                    }
-                });
-            }
-        });
-
-       
         
         $("#search").on("click", function (event) {
             //var symbolKey = $("#searchsymbol").val();
+            symbol = $("#searchsymbol").val();
             getSummaryData(symbol.toLowerCase());
         });
 
-        $("button.apply").on("click", function (event) {
-            var symbolKey = $("#searchsymbol").val();
+        //$("button.apply").on("click", function (event) {
+            //var symbolKey = $("#searchsymbol").val();
             //var fromDate = $("#from").val().replace(/-/g, "");
             //var toDate = $("#to").val().replace(/-/g, "");
-        });
+        //});
 
 
 

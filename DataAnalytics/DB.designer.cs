@@ -48,6 +48,12 @@ namespace DataAnalytics
     partial void InsertAggsByDay(AggsByDay instance);
     partial void UpdateAggsByDay(AggsByDay instance);
     partial void DeleteAggsByDay(AggsByDay instance);
+    partial void InsertPortfolio(Portfolio instance);
+    partial void UpdatePortfolio(Portfolio instance);
+    partial void DeletePortfolio(Portfolio instance);
+    partial void InsertRelation(Relation instance);
+    partial void UpdateRelation(Relation instance);
+    partial void DeleteRelation(Relation instance);
     #endregion
 		
 		public DBDataContext() : 
@@ -133,6 +139,22 @@ namespace DataAnalytics
 			get
 			{
 				return this.GetTable<AggsByDay>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Portfolio> Portfolio
+		{
+			get
+			{
+				return this.GetTable<Portfolio>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Relation> Relation
+		{
+			get
+			{
+				return this.GetTable<Relation>();
 			}
 		}
 		
@@ -1784,6 +1806,178 @@ namespace DataAnalytics
 					this._Dividends = value;
 					this.SendPropertyChanged("Dividends");
 					this.OnDividendsChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Portfolio")]
+	public partial class Portfolio : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _PId;
+		
+		private int _UserId;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnPIdChanging(int value);
+    partial void OnPIdChanged();
+    partial void OnUserIdChanging(int value);
+    partial void OnUserIdChanged();
+    #endregion
+		
+		public Portfolio()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int PId
+		{
+			get
+			{
+				return this._PId;
+			}
+			set
+			{
+				if ((this._PId != value))
+				{
+					this.OnPIdChanging(value);
+					this.SendPropertyChanging();
+					this._PId = value;
+					this.SendPropertyChanged("PId");
+					this.OnPIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="Int NOT NULL")]
+		public int UserId
+		{
+			get
+			{
+				return this._UserId;
+			}
+			set
+			{
+				if ((this._UserId != value))
+				{
+					this.OnUserIdChanging(value);
+					this.SendPropertyChanging();
+					this._UserId = value;
+					this.SendPropertyChanged("UserId");
+					this.OnUserIdChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Relation")]
+	public partial class Relation : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _PId;
+		
+		private int _symbolID;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnPIdChanging(int value);
+    partial void OnPIdChanged();
+    partial void OnsymbolIDChanging(int value);
+    partial void OnsymbolIDChanged();
+    #endregion
+		
+		public Relation()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int PId
+		{
+			get
+			{
+				return this._PId;
+			}
+			set
+			{
+				if ((this._PId != value))
+				{
+					this.OnPIdChanging(value);
+					this.SendPropertyChanging();
+					this._PId = value;
+					this.SendPropertyChanged("PId");
+					this.OnPIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_symbolID", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int symbolID
+		{
+			get
+			{
+				return this._symbolID;
+			}
+			set
+			{
+				if ((this._symbolID != value))
+				{
+					this.OnsymbolIDChanging(value);
+					this.SendPropertyChanging();
+					this._symbolID = value;
+					this.SendPropertyChanged("symbolID");
+					this.OnsymbolIDChanged();
 				}
 			}
 		}

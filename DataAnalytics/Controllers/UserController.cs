@@ -10,7 +10,14 @@ namespace DataAnalytics.Controllers
     public class UserController : Controller
     {
         // GET: User
-        public ActionResult Index()
+        [HttpGet]
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult Register()
         {
             return View();
         }

@@ -51,8 +51,8 @@
 
         <header>
             <div class="sign-in-box">
-                <a class="Exit-a">Exit</a>
-                <a class="SignUp-a">SignUp</a>
+                <a class="Exit-a" href="JavaScript:history.go(-1)">Back</a>
+                <a class="SignUp-a" href="/User/Register">SignUp</a>
             </div>
         </header>
         <section>
@@ -71,7 +71,7 @@
                                 <label for="password" class="youpasswd" data-icon="p"> Your password </label>
                                 <input id="password" name="password" maxlength=10 required oninvalid="setCustomValidity('Please input password!');" type="password" placeholder="eg. X8df!90EO" />
                             </p>
-                            <h5 style="position: relative;top: 35px;"><a>Sign Up?</a></h5>
+                            <h5 style="position: relative;top: 35px;"><a href="/User/Register">Sign Up?</a></h5>
                             <p class="login button">
                                 <input type="submit" value="Login" />
                             </p>
@@ -107,9 +107,10 @@
                                 alert("Unknown error");
                             }else if(response.code == 0){
                                 alert("wrong password");
-                            }else{
-                                window.location.href = "/WatchLists";
+                            } else {
+                                //setCookie("userid", response.code);
                                 setCookie("username", username);
+                                window.location.href = "/WatchLists";
                             }
                         }
                     }

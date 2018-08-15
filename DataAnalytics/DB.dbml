@@ -90,6 +90,18 @@
       <Column Name="Dividends" Type="System.Double" DbType="Float" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.Portfolio" Member="Portfolio">
+    <Type Name="Portfolio">
+      <Column Name="PId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Relation" Member="Relation">
+    <Type Name="Relation">
+      <Column Name="PId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="symbolID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+    </Type>
+  </Table>
   <Function Name="dbo.usp_getwatchlists" Method="usp_getwatchlists">
     <Parameter Name="fromDate" Type="System.Int32" DbType="Int" />
     <Parameter Name="toDate" Type="System.Int32" DbType="Int" />
