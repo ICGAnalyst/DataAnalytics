@@ -22,10 +22,10 @@
     <div class="show-box-c">
         <div class="show-title-box">
             <ul>
-                <li> <a href="#">Home</a></li>
+                <li><a href="/WatchLists">Home</a></li>
                 <li class="active"><a href="#">Summary</a></li>
                 <li><a href="/Chart">Chart</a></li>
-                <li><a href="#">History Data</a></li>
+                <li><a href="/Historic">History Data</a></li>
             </ul>
         </div>
     </div>
@@ -53,6 +53,30 @@
     $(function () {
         'user strict';
 
+        $(".show-title-box ul li").click(function () {
+            $(this).siblings().removeClass("active");
+            $(this).addClass("active");
+        });
+
+        $("#searchsymbol").bind("keypress", function (event) {
+            if (event.keyCode == '13') {
+                var symbolKey = $("#searchsymbol").val();
+                getSummaryData(symbolKey);
+            }
+        });
+
+        $("#searchsymbol").on("blur", function () {
+            setTimeout(function () {
+                $(".search-box-drop-menu").hide();
+            }, 100);
+        });
+
+        $(".search-box-drop-menu").on("click", "ul li", function () {
+            console.log(".search-box-drop-menu click:", $("#searchsymbol").val);
+            $("#searchsymbol").val($(this).html());
+            $(".search-box-drop-menu").hide();
+        });
+
         function Trim(str, is_global) {
             var result;
             result = str.replace(/(^\s+)|(\s+$)/g, "");
@@ -60,7 +84,7 @@
                 result = result.replace(/\s/g, "");
             }
             return result;
-        }
+        };
 
         $("#searchsymbol").bind("keyup", function (event) {
             // $("#input_test2").val($("#searchsymbol").val());
@@ -95,21 +119,8 @@
             }
         });
 
-        $(".search-box-drop-menu ul li").on("click", function () {
-            $("#searchsymbol").val($(this).html());
-            $(".search-box-drop-menu").css("display", "none");
-        });
-        $("#searchsymbol").bind("keypress", function (event) {
-            if (event.keyCode == '13') {
-                var symbolKey = $("#searchsymbol").val();
-                getSummaryData(symbolKey);
-            }
-        });
-        $("#searchsymbol").on("blur", function () {
-            setTimeout(function () {
-                $(".search-box-drop-menu").hide();
-            }, 100);
-        })
+       
+        
         $("#search").on("click", function (event) {
             var symbolKey = $("#searchsymbol").val();
             getSummaryData(symbolKey);
@@ -120,10 +131,7 @@
             //var fromDate = $("#from").val().replace(/-/g, "");
             //var toDate = $("#to").val().replace(/-/g, "");
         });
-        $(".show-title-box ul li").click(function () {
-            $(this).siblings().removeClass("active");
-            $(this).addClass("active");
-        });
+
 
 
         function getSummaryData(symbolKey) {
