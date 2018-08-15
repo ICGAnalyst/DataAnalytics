@@ -64,5 +64,25 @@ namespace DataAnalytics.Models
                 return -1;
             }
         }
+
+        public int FindUserId(string username)
+        {
+            try
+            {
+                var res = (from s in db.User
+                          where s.UserName == username
+                          select s.UserId).ToList();
+                if(res == null || res.Count() == 0)
+                {
+                    return -1;
+                }
+                return res[0];
+            }
+            catch (Exception e)
+            {
+                //
+                return -1;
+            }
+        }
     }
 }

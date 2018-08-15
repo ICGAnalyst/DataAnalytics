@@ -151,6 +151,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ChartController.cs" />
     <Compile Include="Controllers\HistoricController.cs" />
+    <Compile Include="Controllers\PortfolioController.cs" />
     <Compile Include="Controllers\SearchSymbolController.cs" />
     <Compile Include="Controllers\SummaryController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -165,6 +166,7 @@
     </Compile>
     <Compile Include="Models\Historic.cs" />
     <Compile Include="Models\HistoricBusiness.cs" />
+    <Compile Include="Models\Symbol.cs" />
     <Compile Include="Models\PortfolioBusiness.cs" />
     <Compile Include="Models\SearchSymbolBusiness.cs" />
     <Compile Include="Models\SummaryData.cs" />
@@ -270,6 +272,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Portfolio\" />
     <Folder Include="Views\SearchSymbol\" />
   </ItemGroup>
   <ItemGroup>
