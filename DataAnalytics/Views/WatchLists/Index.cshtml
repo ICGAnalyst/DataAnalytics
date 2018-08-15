@@ -1,4 +1,4 @@
-﻿@{
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @{
@@ -7,7 +7,8 @@
 <div class="search-box" style="position:absolute;top:100px;width:100%" ">
     <div class="search-box-c">
         <div class="form">
-            <input type="text" placeholder="Please search..." id="searchsymbol">
+            <input type="text" placeholder="Please search..." id="searchsymbol"  data-provide="typeahead"
+            data-source='["Deluxe Bicycle", "Super Deluxe Trampoline", "Super Duper Scooter"]'>
             <input type="hidden">
             <button id="search"></button>
         </div>
@@ -59,94 +60,112 @@
 
 </div>
     @section Footer{
-        <script>
-    $(function () {
-                'user strict';
+<script>$(function() {
+        'user strict';
 
-                $("#from").datepicker({
-                    defaultDate: "+1w",
-                    changeMonth: true,
-                    changeYear: true,
-                    minDate: new Date(2016, 1 - 1, 4),
-                    maxDate: new Date(2016, 3 - 1, 24),
-                    onClose: function (selectedDate) {
-                        $("#to").datepicker("option", "minDate", selectedDate);
-                        $("#from").datepicker("option", "dateFormat", "yy-mm-dd");
+
+        $.ajax({
+            url: "/SearchSymbol/GetSearchSymbol",
+            type: "POST",
+            data: {
+                searchKey: t
+            },
+            dataType: "json",
+            crossDomain: true,
+            success: function(response) {
+                if (response.len == 0) {
+                    return;
+                } else {
+                    $("#searchsymbol").typeahead({ source: response.data });
+                }
+            }
+        });
+
+
+        $("#from").datepicker({
+            defaultDate: "+1w",
+            changeMonth: true,
+            changeYear: true,
+            minDate: new Date(2016, 1 - 1, 4),
+            maxDate: new Date(2016, 3 - 1, 24),
+            onClose: function(selectedDate) {
+                $("#to").datepicker("option", "minDate", selectedDate);
+                $("#from").datepicker("option", "dateFormat", "yy-mm-dd");
+            }
+        });
+        $("#to").datepicker({
+            defaultDate: "+1w",
+            changeMonth: true,
+            changeYear: true,
+            minDate: new Date(2016, 1 - 1, 4),
+            maxDate: new Date(2016, 3 - 1, 24),
+            onClose: function(selectedDate) {
+                $("#from").datepicker("option", "maxDate", selectedDate);
+                $("#to").datepicker("option", "dateFormat", "yy-mm-dd");
+            }
+        });
+        $("#searchsymbol").bind("keypress", function(event) {
+            if (event.keycode == '13') {
+                var txt = $(this).val();
+                $(".stock-infro").html(txt);
+                //$(this).val("");
+            }
+
+        });
+
+        $("#search").on("click", function(event) {
+            var symbolKey = $("#searchsymbol").val();
+            var fromDate = 20160104; //The min date
+            var toDate = 20160324; // The Max date
+            //getHistoryData(symbolKey, fromDate, toDate);
+            getWatchList(fromDate, toDate);
+        });
+
+        $("button.apply").on("click", function(event) {
+            var fromDate = $("#from").val().replace(/-/g, "");
+            var toDate = $("#to").val().replace(/-/g, "");
+            //console.log(fromDate);
+            //console.log(toDate);
+            getWatchList(fromDate, toDate);
+        });
+
+
+        var table;
+        //var showHistoryData = function (historydata) {
+        table = $("#data").DataTable({
+            'infoEmpty': '没有数据',
+            "columns": [
+                { "data": "Symbol" },
+                { "data": "Change" },
+                { "data": "ChangePercent" },
+                { "data": "Volume" },
+                { "data": "Dividends" }
+            ]
+        });
+        //};
+        var getWatchList = function(fromDate, toDate) {
+            $.ajax({
+                url: "/WatchLists/GetWatchLists",
+                type: "POST",
+                data: {
+                    fromDate: fromDate,
+                    toDate: toDate
+                },
+                dataType: "json",
+                crossDomain: true,
+                success: function(response) {
+                    //response = response[0];
+                    if (response.code == '1') {
+                        // 先清空表格
+                        table.clear().draw();
+                        //showHistoryData(response.data);
+                        table.rows.add(response.data).draw();
+                    } else {
+                        alert("Unknown error")
                     }
-                });
-                $("#to").datepicker({
-                    defaultDate: "+1w",
-                    changeMonth: true,
-                    changeYear: true,
-                    minDate: new Date(2016, 1 - 1, 4),
-                    maxDate: new Date(2016, 3 - 1, 24),
-                    onClose: function (selectedDate) {
-                        $("#from").datepicker("option", "maxDate", selectedDate);
-                        $("#to").datepicker("option", "dateFormat", "yy-mm-dd");
-                    }
-                });
-                $("#searchsymbol").bind("keypress", function (event) {
-                    if (event.keycode == '13') {
-                        var txt = $(this).val();
-                        $(".stock-infro").html(txt);
-                        //$(this).val("");
-                    }
 
-                });
-
-                $("#search").on("click", function (event) {
-                    var symbolKey = $("#searchsymbol").val();
-                    var fromDate = 20160104; //The min date
-                    var toDate = 20160324; // The Max date
-                    //getHistoryData(symbolKey, fromDate, toDate);
-                    getWatchList(fromDate, toDate);
-                });
-
-                $("button.apply").on("click", function (event) {
-                    var fromDate = $("#from").val().replace(/-/g, "");
-                    var toDate = $("#to").val().replace(/-/g, "");
-                    //console.log(fromDate);
-                    //console.log(toDate);
-                    getWatchList(fromDate, toDate);
-                });
-
-
-                var table;
-                //var showHistoryData = function (historydata) {
-                table = $("#data").DataTable({
-                    'infoEmpty': '没有数据',
-                    "columns": [
-                        { "data": "Symbol" },
-                        { "data": "Change" },
-                        { "data": "ChangePercent" },
-                        { "data": "Volume" },
-                        { "data": "Dividends" }
-                    ]
-                });
-                //};
-                var getWatchList = function (fromDate, toDate) {
-                    $.ajax({
-                        url: "/WatchLists/GetWatchLists",
-                        type: "POST",
-                        data: {
-                            fromDate: fromDate,
-                            toDate: toDate
-                        },
-                        dataType: "json",
-                        crossDomain: true,
-                        success: function (response) {
-                            //response = response[0];
-                            if (response.code == '1') {
-                                // 先清空表格
-                                table.clear().draw();
-                                //showHistoryData(response.data);
-                                table.rows.add(response.data).draw();
-                            } else {
-                                alert("Unknown error")
-                            }
-
-                        }
-                    });
-                };
-            })</script>
+                }
+            });
+        };
+})</script>
     }
