@@ -8,16 +8,16 @@
 <div class="search-box" style="position:absolute;top:100px;width:100%" ">
     <div class="search-box-c">
         <div class="form">
-            <input type="text" placeholder="Please search..." id="searchsymbol">
+            <input type="text" placeholder="Please search..." id="searchsymbol" data-provide="typeahead">
             <input type="hidden">
             <button id="search"></button>
         </div>
-        <div class="search-box-drop-menu">
+        @*<div class="search-box-drop-menu">
             <ul></ul>
-        </div>
+        </div>*@
     </div>
 </div>
-<div class="stock-Infro">1111111</div>
+<div class="stock-Infro"></div>
 <div class="show-box" style="width:100%;position: absolute;top:200px;">
     <div class="show-box-c">
         <div class="show-title-box">
@@ -52,18 +52,161 @@
 <script>
     $(function () {
         'user strict';
+        // get the symbol in the url
+        var symbol = getQueryString("symbol");
+        if (symbol == null || symbol == "") {
+            symbol = "C";
+        } else {
+            symbol = symbol.toUpperCase();
+        }
+        $(".stock-Infro").html(symbol);
 
+        $.ajax({
+            url: "/SearchSymbol/GetSearchSymbol",
+            type: "POST",
+            data: {
+                searchKey: ""
+            },
+            dataType: "json",
+            crossDomain: true,
+            success: function (response) {
+                if (response.len == 0) {
+                    return;
+                } else {
+                    $("#searchsymbol").typeahead({ source: response.data });
+                }
+            }
+        });
+
+        getSummaryData(symbol.toLowerCase())
+
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return unescape(r[2]); return null;
+        }
+
+        function getSummaryData(symbolKey) {
+            $.ajax({
+                url: "/Summary/GetSummaryData",
+                type: "POST",
+                dataType: 'json',
+                data: { symbol: symbolKey },
+                success: function (data) {
+                    symbol = symbolKey.toUpperCase();
+                    $(".stock-Infro").html(symbol);
+
+                    if (data.len == 0) {
+                        alert("No Data Set");
+                        return;
+                    }
+                    // split the data set into ohlc and volume
+                    var ohlc = [],
+                        volume = [],
+                        dataLength = data.len,
+                        data = data.data;
+                    // set the allowed units for data grouping
+                    groupingUnits = [[
+                        'week',                         // unit name
+                        [1]                             // allowed multiples
+                    ], [
+                        'month',
+                        [1, 2, 3, 4, 6]
+                    ]],
+
+                        i = 0;
+
+                    for (i; i < dataLength; i += 1) {
+                        ohlc.push([
+                            data[i]["DateTime"], // the date
+                            data[i]["Open"], // open
+                            data[i]["High"], // high
+                            data[i]["Low"], // low
+                            data[i]["Close"] // close
+                        ]);
+
+                        volume.push([
+                            data[i]["DateTime"], // the date
+                            data[i]["Volume"] // the volume
+                        ]);
+                    }
+
+
+                    // create the chart
+                    Highcharts.stockChart('summary-container', {
+
+                        rangeSelector: {
+                            selected: 1
+                        },
+
+                        title: {
+                            text: symbol.toUpperCase() + ' Summary'//symbol
+                        },
+
+                        yAxis: [{
+                            labels: {
+                                align: 'right',
+                                x: -3
+                            },
+                            title: {
+                                text: 'OHLC'
+                            },
+                            height: '60%',
+                            lineWidth: 2,
+                            resize: {
+                                enabled: true
+                            }
+                        }, {
+                            labels: {
+                                align: 'right',
+                                x: -3
+                            },
+                            title: {
+                                text: 'Volume'
+                            },
+                            top: '65%',
+                            height: '35%',
+                            offset: 0,
+                            lineWidth: 2
+                        }],
+
+                        tooltip: {
+                            split: true
+                        },
+
+                        series: [{
+                            type: 'candlestick',
+                            name: symbol.toUpperCase(),//symbol
+                            data: ohlc,
+                            dataGrouping: {
+                                units: groupingUnits
+                            }
+                        }, {
+                            type: 'column',
+                            name: 'Volume',
+                            data: volume,
+                            yAxis: 1,
+                            dataGrouping: {
+                                units: groupingUnits
+                            }
+                        }]
+                    });
+                }
+            });
+        }
+
+        
         $(".show-title-box ul li").click(function () {
             $(this).siblings().removeClass("active");
             $(this).addClass("active");
         });
 
-        $("#searchsymbol").bind("keypress", function (event) {
-            if (event.keyCode == '13') {
-                var symbolKey = $("#searchsymbol").val();
-                getSummaryData(symbolKey);
-            }
-        });
+        //$("#searchsymbol").bind("keypress", function (event) {
+        //    if (event.keyCode == '13') {
+        //        var symbolKey = $("#searchsymbol").val();
+        //        getSummaryData(symbolKey);
+        //    }
+        //});
 
         $("#searchsymbol").on("blur", function () {
             setTimeout(function () {
@@ -122,8 +265,8 @@
        
         
         $("#search").on("click", function (event) {
-            var symbolKey = $("#searchsymbol").val();
-            getSummaryData(symbolKey);
+            //var symbolKey = $("#searchsymbol").val();
+            getSummaryData(symbol.toLowerCase());
         });
 
         $("button.apply").on("click", function (event) {
@@ -134,111 +277,7 @@
 
 
 
-        function getSummaryData(symbolKey) {
-            $.ajax({
-                url: "/Summary/GetSummaryData",
-                type: "POST",
-                dataType: 'json',
-                data: { symbol: symbolKey },
-                success: function (data) {
-                    if (data.len == 0) {
-                        alert("No Data Set");
-                        return;
-                    }
-                    // split the data set into ohlc and volume
-                    var ohlc = [],
-                        volume = [],
-                        dataLength = data.len,
-                        data = data.data;
-                    // set the allowed units for data grouping
-                    groupingUnits = [[
-                        'week',                         // unit name
-                        [1]                             // allowed multiples
-                    ], [
-                        'month',
-                        [1, 2, 3, 4, 6]
-                    ]],
-
-                        i = 0;
-
-                    for (i; i < dataLength; i += 1) {
-                        ohlc.push([
-                            data[i]["DateTime"], // the date
-                            data[i]["Open"], // open
-                            data[i]["High"], // high
-                            data[i]["Low"], // low
-                            data[i]["Close"] // close
-                        ]);
-
-                        volume.push([
-                            data[i]["DateTime"], // the date
-                            data[i]["Volume"] // the volume
-                        ]);
-                    }
-
-
-                    // create the chart
-                    Highcharts.stockChart('summary-container', {
-
-                        rangeSelector: {
-                            selected: 1
-                        },
-
-                        title: {
-                            text: symbolKey + ' Summary'//symbol
-                        },
-
-                        yAxis: [{
-                            labels: {
-                                align: 'right',
-                                x: -3
-                            },
-                            title: {
-                                text: 'OHLC'
-                            },
-                            height: '60%',
-                            lineWidth: 2,
-                            resize: {
-                                enabled: true
-                            }
-                        }, {
-                            labels: {
-                                align: 'right',
-                                x: -3
-                            },
-                            title: {
-                                text: 'Volume'
-                            },
-                            top: '65%',
-                            height: '35%',
-                            offset: 0,
-                            lineWidth: 2
-                        }],
-
-                        tooltip: {
-                            split: true
-                        },
-
-                        series: [{
-                            type: 'candlestick',
-                            name: symbolKey,//symbol
-                            data: ohlc,
-                            dataGrouping: {
-                                units: groupingUnits
-                            }
-                        }, {
-                            type: 'column',
-                            name: 'Volume',
-                            data: volume,
-                            yAxis: 1,
-                            dataGrouping: {
-                                units: groupingUnits
-                            }
-                        }]
-                    });
-                }
-            });
-        }
+        
 
     })
 </script>

@@ -180,9 +180,16 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\animate-custom.css" />
+    <Content Include="Content\css\demo.css" />
+    <Content Include="Content\css\style.css" />
     <Content Include="Content\layoutstyle.css" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\BebasNeue-webfont.svg" />
     <Content Include="fonts\bg-img.svg" />
+    <Content Include="fonts\Dharma Type Font License.txt" />
+    <Content Include="fonts\fontomas-webfont.svg" />
+    <Content Include="fonts\franchise-bold-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -201,7 +208,17 @@
     <None Include="DB.dbml.layout">
       <DependentUpon>DB.dbml</DependentUpon>
     </None>
+    <Content Include="fonts\BebasNeue-webfont.eot" />
+    <Content Include="fonts\BebasNeue-webfont.ttf" />
+    <Content Include="fonts\BebasNeue-webfont.woff" />
+    <Content Include="fonts\fontomas-webfont.eot" />
+    <Content Include="fonts\fontomas-webfont.ttf" />
+    <Content Include="fonts\fontomas-webfont.woff" />
+    <Content Include="fonts\franchise-bold-webfont.eot" />
+    <Content Include="fonts\franchise-bold-webfont.ttf" />
+    <Content Include="fonts\franchise-bold-webfont.woff" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\cookie-operation.js" />
     <Content Include="Scripts\cufon-yui.js" />
     <Content Include="Scripts\cuf_run.js" />
     <Content Include="Scripts\export-data.js" />
@@ -232,11 +249,11 @@
     <None Include="Views\Historic\Index.cshtml" />
     <Content Include="Views\Summary\Index.cshtml" />
     <Content Include="Views\WatchLists\Index.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\SearchSymbol\" />
-    <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

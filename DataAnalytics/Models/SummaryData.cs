@@ -7,7 +7,7 @@ namespace DataAnalytics.Models
 {
     public class SummaryData
     {
-        private int dateTime;
+        private long dateTime;
 
         private decimal open;
 
@@ -19,7 +19,7 @@ namespace DataAnalytics.Models
 
         private float volume;
 
-        public int DateTime { get => dateTime; set => dateTime = value; }
+        public long DateTime { get => dateTime; set => dateTime = value; }
         public decimal Open { get => open; set => open = value; }
         public decimal High { get => high; set => high = value; }
         public decimal Low { get => low; set => low = value; }

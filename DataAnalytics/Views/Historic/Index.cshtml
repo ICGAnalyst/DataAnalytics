@@ -7,13 +7,13 @@
 <div class="search-box" style="position:absolute;top:100px;width:100%" ">
     <div class="search-box-c">
         <div class="form">
-            <input type="text" placeholder="Please search..." id="searchsymbol">
+            <input type="text" placeholder="Please search..." id="searchsymbol" data-provide="typeahead">
             <input type="hidden">
             <button id="search"></button>
         </div>
-        <div class="search-box-drop-menu">
+        @*<div class="search-box-drop-menu">
             <ul></ul>
-        </div>
+        </div>*@
     </div>
 </div>
 
@@ -64,6 +64,23 @@
         //}
         $(function () {
             'user strict';
+
+            $.ajax({
+                url: "/SearchSymbol/GetSearchSymbol",
+                type: "POST",
+                data: {
+                    searchKey: ""
+                },
+                dataType: "json",
+                crossDomain: true,
+                success: function (response) {
+                    if (response.len == 0) {
+                        return;
+                    } else {
+                        $("#searchsymbol").typeahead({ source: response.data });
+                    }
+                }
+            });
 
             $(".show-title-box ul li").click(function () {
                 $(this).siblings().removeClass("active");
@@ -117,6 +134,11 @@
                 }, 100);
             })
 
+            $(".search-box-drop-menu").on("click", "ul li", function () {
+                console.log(".search-box-drop-menu click:", $("#searchsymbol").val);
+                $("#searchsymbol").val($(this).html());
+                $(".search-box-drop-menu").hide();
+            });
             
 
             function Trim(str, is_global) {

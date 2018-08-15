@@ -16,6 +16,10 @@
     <link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css" />
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://cdn.bootcss.com/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
+    <script src="~/Scripts/cookie-operation.js"></script>
     <!--
     <style>
         body {
@@ -237,13 +241,12 @@
         </div>
         <div class="title-box">
             <div class="logo-box">
-                <h1 style="margin-left: 20px;margin-top: 5px;">logo</h1>
+                <h1 style="margin-left: 20px; margin-top: 5px;">logo</h1>
             </div>
             <div class="sign-in-box">
                 <button>Sign In</button>
             </div>
         </div>
-
         @RenderBody()
     </div>
     <footer>@RenderSection("Footer", false)</footer>

@@ -21,7 +21,10 @@ namespace DataAnalytics.Models
                 foreach (var item in resultSet)
                 {
                     SummaryData summaryData = new SummaryData();
-                    summaryData.DateTime = (int) (item.Date * 100 + item.Time);
+                    string str = item.Date.ToString();
+                    DateTime dtime = DateTime.ParseExact(str, "yyyyMMdd", null);
+                    long totalSeconds = (long) (dtime - new DateTime(1970, 1, 1)).TotalMilliseconds;
+                    summaryData.DateTime = totalSeconds + (long)item.Time * 3600 * 1000;
                     summaryData.Open = (decimal)item.Open;
                     summaryData.High = (decimal)item.High;
                     summaryData.Low = (decimal)item.Low;
