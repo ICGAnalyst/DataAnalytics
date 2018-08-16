@@ -4,12 +4,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="stock-Infro"></div>
+<div class="stock-Infro" style="font-size:25px;font-weight:900"></div>
 <div class="show-box" style="width:100%;">
     <div class="show-box-c">
         
     </div>
-    <div class="show-chart-box">
+    <div class="show-chart-box" style="margin-top:20px;">
         <div id="summary-container" style="height: 400px; min-width: 310px"></div>
     </div>
 
@@ -29,7 +29,7 @@
         } else {
             symbol = symbol.toUpperCase();
         }
-        $(".stock-Infro").html(symbol);
+        $(".stock-Infro").html("Symbol: " + symbol);
 
 
         $.ajax({
@@ -74,7 +74,7 @@
                     symbol = symbolKey.toUpperCase();
                     var url = window.location.href.split("=")[0];
                     console.log(url);
-                    $(".stock-Infro").html(symbol);
+                    $(".stock-Infro").html("Symbol: " + symbol);
                     window.history.pushState({}, 0, url + "=" + symbol);
                     // split the data set into ohlc and volume
 

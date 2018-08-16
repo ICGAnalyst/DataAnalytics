@@ -43,14 +43,17 @@
             right: 80px;
             top: 20px;
         }
+        a {
+            color: #bac4d3;
+        }
     </style>
 </head>
-<body>
+<body style="background-color: #203048;">
     <div class="container">
 
         <header>
             <div class="sign-in-box">
-                <a class="Exit-a" href="JavaScript:history.go(-1)">Back</a>
+                <a class="Exit-a" href="/WatchLists">Back</a>
                 <a class="SignIn-a" href="/User/Login">SignIn</a>
             </div>
         </header>
@@ -90,18 +93,25 @@
             $("input[type=submit]").click(function () {
                 var username = $("#username").val();
                 var password = $("#password").val();
-                getSignInData(username, password);
-            });
-            $("input[type='submit']").click(function () {
-                var nameVal = $("#username").val();
-                var passVal = $("password").val();
-                if (nameVal == "" || nameVal == null) {
+                if (username == "" || username == null) {
                     $(".notice").css("display", "block").append("<span>" + "Please input your name!" + "</span>");
-                } else if (passVal == "" || passVal == null) {
+                } else if (password == "" || password == null) {
                     $(".notice").css("display", "block").append("<span>" + "Please input your password!" + "</span>");
                 } else {
                     getSignInData(username, password);
                 }
+            });
+            //$("input[type='submit']").click(function () {
+            //    var nameVal = $("#username").val();
+            //    var passVal = $("password").val();
+            //    if (nameVal == "" || nameVal == null) {
+            //        $(".notice").css("display", "block").append("<span>" + "Please input your name!" + "</span>");
+            //    } else if (passVal == "" || passVal == null) {
+            //        $(".notice").css("display", "block").append("<span>" + "Please input your password!" + "</span>");
+            //    } else {
+            //        getSignInData(username, password);
+            //    }
+            //});
             function getSignInData(username, password) {
                 $.ajax({
                     url: "/User/Register",

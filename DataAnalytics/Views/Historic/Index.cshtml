@@ -5,24 +5,24 @@
     ViewBag.Title = "Historic";
 }
 
-
+<div class="stock-Infro" style="font-size:25px;font-weight:900"></div>
 <div class="show-box" style="width:100%;">
     <div class="show-box-c">
 
     </div>
-    <div class="show-chart-box">
-        <div class="show-chart-box-c" style="width:970px;padding: 10px">
+    <div class="show-chart-box" style=" margin-top: 20px;">
+        <div class="show-chart-box-c" style="width:970px;padding-top: 10px; padding-bottom: 60px;">
             <div class="calendar" style="float:left">
-                <label style="font-weight:800;font-size: 17px;">Date Range:</label>&nbsp;&nbsp;
-                <label for="from" style="font-weight:700;font-size: 16px;">From</label>
-                <input type="text" id="from" name="from" style="box-shadow: 1px 1px 1px 1px #e0e0e0;border-radius: 5px;background: #C9CCD3; background-image: linear-gradient(-180deg, rgba(255,255,255,0.50) 0%, rgba(0,0,0,0.50) 100%); background-blend-mode: lighten;">&nbsp;
-                <label for="to" style="font-weight:700;font-size: 16px;">To</label>
-                <input type="text" id="to" name="to" style="box-shadow: 1px 1px 1px 1px #e0e0e0;border-radius: 5px;background: #C9CCD3; border-radius: 5px;background: #C9CCD3; background-image: linear-gradient(-180deg, rgba(255,255,255,0.50) 0%, rgba(0,0,0,0.50) 100%); background-blend-mode: lighten;">
+                <label style="font-weight:500;font-size: 17px;">Date Range:</label>&nbsp;&nbsp;
+                <label for="from" style="font-weight:500;font-size: 16px;">From</label>
+                <input type="text" id="from" name="from" style="color:#000;box-shadow: 1px 1px 1px 1px #e0e0e0;border-radius: 5px;background: #C9CCD3; background-image: linear-gradient(-180deg, rgba(255,255,255,0.50) 0%, rgba(0,0,0,0.50) 100%); background-blend-mode: lighten;">&nbsp;
+                <label for="to" style="font-weight:500;font-size: 16px;">To</label>
+                <input type="text" id="to" name="to" style="color:#000;box-shadow: 1px 1px 1px 1px #e0e0e0;border-radius: 5px;background: #C9CCD3; border-radius: 5px;background: #C9CCD3; background-image: linear-gradient(-180deg, rgba(255,255,255,0.50) 0%, rgba(0,0,0,0.50) 100%); background-blend-mode: lighten;">
             </div>
             <button class="apply">Apply</button>
         </div>
-        <table id="historyDataTable" class="display" style="padding :20px 20px; color: #dddddd !important"">
-            <thead>
+        <table id="historyDataTable" class="display" style="padding :20px 0; color: #000">
+            <thead style="color:#969292!important;background-color: white;">
                 <tr>
                     <th>Date</th>
                     <th>Open</th>
@@ -47,6 +47,21 @@
         //}
         $(function () {
             'user strict';
+
+            var symbol = getQueryString("symbol");
+            if (symbol == null || symbol == "") {
+                symbol = "C";
+            } else {
+                symbol = symbol.toUpperCase();
+            }
+            $(".stock-Infro").html("Symbol: " + symbol);
+
+            function getQueryString(name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+                var r = window.location.search.substr(1).match(reg);
+                if (r != null) return unescape(r[2]); return null;
+            }
+
 
             $(".tooplate_menu-ul li:eq(3) a").addClass("tooplate_menu-ul-li-active");
 

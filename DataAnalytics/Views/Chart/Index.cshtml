@@ -3,7 +3,7 @@ ViewBag.Title = "Chart";
 Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
+<div class="stock-Infro" style="font-size:25px;font-weight:900"></div>
 <div class="show-box" style="width:100%;">
 <div class="show-box-c">
 </div>
@@ -20,11 +20,28 @@ Layout = "~/Views/Shared/_Layout.cshtml";
 @section Footer{
 <script src="~/Scripts/highstock.js"></script>
 <script src="~/Scripts/exporting.js"></script>
+<!--
 <script src="~/Scripts/export-data.js"></script>
+-->
 <script>
 $(function() {
     @*'user strict';*@
     $(".tooplate_menu-ul li:eq(2) a").addClass("tooplate_menu-ul-li-active");
+
+    var symbol = getQueryString("symbol");
+    if (symbol == null || symbol == "") {
+        symbol = "C";
+    } else {
+        symbol = symbol.toUpperCase();
+    }
+    $(".stock-Infro").html("Symbol: " + symbol);
+
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;
+    }
+
     $("#add").on("click", function(event) {
         var symbolKey = $("#searchsymbol").val();
         if (symbolKey != null && symbolKey != ""){
@@ -37,63 +54,55 @@ $(function() {
     });
 
         $("#remove").on("click", function(event) {
-        names.pop();
-        seriesOptions.pop();
-        console.log(seriesOptions);
-        createChart();
+            names.pop();
+            seriesCounter--;
+            seriesOptions.pop();
+            console.log(seriesOptions);
+            createChart();
         });
 
     //stock chart
-var seriesOptions = [],
-    seriesCounter = 0,
-    //names = ['MSFT'],
-    names = [];
+    var seriesOptions = [],
+        seriesCounter = 0,
+        //names = ['MSFT'],
+        names = [];
 
-// create the chart when all data is loaded
-createChart = function () {
-    Highcharts.stockChart('container', {
-        rangeSelector: {
-            selected: 4
-        },
-        xAxis: {
-            //minTickInterval: 3600 * 1000,//间隔值
-            events: {
-                // 范围选择器改变的范围最终是改变坐标轴的范围，所以我们监听坐标的极值变更事件函数即可
-                //afterSetExtremes: function (e) {
-                //     e.min 和 e.max 为坐标轴当前的范围
-                //    console.log(e.min, e.max);
-                //}
-            }
-        },
-        yAxis: {
-            labels: {
-                formatter: function () {
-                    return (this.value > 0 ? ' + ' : '') + this.value + '%';
+    // create the chart when all data is loaded
+    var createChart = function () {
+        Highcharts.stockChart('container', {
+            rangeSelector: {
+                selected: 4
+            },
+            yAxis: {
+                labels: {
+                    formatter: function () {
+                        return (this.value > 0 ? ' + ' : '') + this.value + '%';
+                    }
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 2,
+                    color: 'silver'
+                }]
+            },
+            plotOptions: {
+                series: {
+                    compare: 'percent'
                 }
             },
-            plotLines: [{
-                value: 0,
-                width: 2,
-                color: 'silver'
-            }]
-        },
-        plotOptions: {
-            series: {
-                compare: 'percent'
-            }
-        },
-        tooltip: {
-            pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.change}%)<br/>',
-            valueDecimals: 2
-        },
-        series: seriesOptions
-    });
-};
+            tooltip: {
+                pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.change}%)<br/>',
+                valueDecimals: 2
+            },
+            series: seriesOptions
+        });
+    };
 
 var redawChart = function(names) {
     console.log('redraw');
-    var name = names[names.length - 1];
-    console.log("symbol = " + name);
+    $.each(names, function (i, name) {
+        //var name = names[names.length - 1];
+        console.log("symbol = " + name);
         $.ajax({
             url: "/Summary/GetSummaryData",
             type: "POST",
@@ -104,27 +113,33 @@ var redawChart = function(names) {
                     var data = new Array();
                     for (var count = 0; count < response.len; count++) {
                         var item = response.data[count];
-                        data.push([ item.DateTime, item.Close ]);
+                        data.push([item.DateTime, item.Close]);
                     }
                     //console.log(data);
                     //console.log("i = " + i);
-                    seriesOptions.push({
+                    //seriesOptions.push({
+                    //    name: name,
+                    //    data: data
+                    //});
+                    console.log("seriesCounter = " + seriesCounter);
+                    seriesOptions[i] = {
                         name: name,
                         data: data
-                    });
+                    };
                     console.log("seriesOptions:", seriesOptions);
-                    seriesCounter += 1;
-                    console.log("seriesCounter = " + seriesCounter);
-                    console.log("names.length = " + names.length);
+                    seriesCounter++;
+                    //console.log("seriesCounter = " + seriesCounter);
+                    //console.log("names.length = " + names.length);
                     createChart();
                 } else {
                     alert("Unknown error")
                 }
             }
         })
+    });
 };
 
-redawChart(names);
+//redawChart(names);
 
 })
 </script>

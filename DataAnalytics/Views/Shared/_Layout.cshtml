@@ -38,7 +38,7 @@
                 </div>
                 <div class="IsLogin" style="display:none">
                     <span id="username"></span>&nbsp;&nbsp;&nbsp;
-                    <a class="SignUp-a" href="/User/Register">Exit</a>
+                    <a class="SignUp-a" href="javascript:void(0)" id="exit">Exit</a>
                 </div>
             </div>
         </div>
@@ -54,7 +54,7 @@
                     <li><a href="/Summary">Summary</a></li>
                     <li><a href="/Chart">Chart</a></li>
                     <li><a href="/Historic">History Data</a></li>
-                    <li class="last"><a href="/Portfolio">My Portfolio</a></li>
+                    <li class="last" style="display:none" id="portfolio"><a href="/Portfolio">My Portfolio</a></li>
 
                 </ul>
                 <div class="search-box-c" id="search-box-c">
@@ -88,7 +88,25 @@
             } else {
                 $(".IsLogin").show();
                 $("#username").html(username);
+                $("#portfolio").show();
             }
+
+            $("#exit").on("click", function () {
+                $.ajax({
+                    url: "/User/Logout",
+                    type: "POST",
+                    dataType: "json",
+                    crossDomain: true,
+                    success: function (response) {
+                        if (response.code == 0) {
+                            alert("Unknown error");
+                        } else {
+                            $.removeCookie("username");
+                            window.location.href = '/WatchLists';
+                        }
+                    }
+                });
+            });
 
             $.ajax({
                 url: "/SearchSymbol/GetSearchSymbol",
