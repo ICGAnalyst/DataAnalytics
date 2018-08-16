@@ -39,6 +39,7 @@ namespace DataAnalytics.Controllers
             return Json(jsonObject);
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public ActionResult Login(string username, string userpass)
         {
