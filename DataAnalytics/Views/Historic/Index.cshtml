@@ -55,6 +55,7 @@
                 symbol = symbol.toUpperCase();
             }
             $(".stock-Infro").html("Symbol: " + symbol);
+            
 
             function getQueryString(name) {
                 var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
@@ -117,11 +118,11 @@
                 }, 100);
             })
 
-            $(".search-box-drop-menu").on("click", "ul li", function () {
-                console.log(".search-box-drop-menu click:", $("#searchsymbol").val);
-                $("#searchsymbol").val($(this).html());
-                $(".search-box-drop-menu").hide();
-            });
+            //$(".search-box-drop-menu").on("click", "ul li", function () {
+            //    console.log(".search-box-drop-menu click:", $("#searchsymbol").val);
+            //    $("#searchsymbol").val($(this).html());
+            //    $(".search-box-drop-menu").hide();
+            //});
             
 
             function Trim(str, is_global) {
@@ -133,37 +134,37 @@
                 return result;
             }
 
-            $("#searchsymbol").bind("keyup", function (event) {
-                // $("#input_test2").val($("#searchsymbol").val());
-                var getSearchSymbol = $("#searchsymbol").val();
-                var t = Trim(getSearchSymbol, "g");
-                if (t == null || t == "") {
-                    return;
-                } else {
-                    $.ajax({
-                        url: "/SearchSymbol/GetSearchSymbol",
-                        type: "POST",
-                        data: {
-                            searchKey: t
-                        },
-                        dataType: "json",
-                        crossDomain: true,
-                        success: function (response) {
-                            if (response.len == 0) {
-                                $(".search-box-drop-menu").hide();
-                                return;
-                            } else {
-                                var str = '';
-                                for (var i = 0; i < response.len && i < 10; i++) {
-                                    str += "<li>" + response.data[i] + "</li>";
-                                }
-                                $(".search-box-drop-menu ul").html(str);
-                                $(".search-box-drop-menu").show();
-                            }
-                        }
-                    });
-                }
-            });
+            //$("#searchsymbol").bind("keyup", function (event) {
+            //    // $("#input_test2").val($("#searchsymbol").val());
+            //    var getSearchSymbol = $("#searchsymbol").val();
+            //    var t = Trim(getSearchSymbol, "g");
+            //    if (t == null || t == "") {
+            //        return;
+            //    } else {
+            //        $.ajax({
+            //            url: "/SearchSymbol/GetSearchSymbol",
+            //            type: "POST",
+            //            data: {
+            //                searchKey: t
+            //            },
+            //            dataType: "json",
+            //            crossDomain: true,
+            //            success: function (response) {
+            //                if (response.len == 0) {
+            //                    $(".search-box-drop-menu").hide();
+            //                    return;
+            //                } else {
+            //                    var str = '';
+            //                    for (var i = 0; i < response.len && i < 10; i++) {
+            //                        str += "<li>" + response.data[i] + "</li>";
+            //                    }
+            //                    $(".search-box-drop-menu ul").html(str);
+            //                    $(".search-box-drop-menu").show();
+            //                }
+            //            }
+            //        });
+            //    }
+            //});
 
             $("#search").on("click", function (event) {
                 var symbolKey = $("#searchsymbol").val();
@@ -229,6 +230,8 @@
                     }
                 });
             };
+
+            getHistoryData(symbol, 20160104, 20160324);
         })
     </script>
 }

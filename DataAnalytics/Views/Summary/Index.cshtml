@@ -75,7 +75,8 @@
                     var url = window.location.href.split("=")[0];
                     console.log(url);
                     $(".stock-Infro").html("Symbol: " + symbol);
-                    window.history.pushState({}, 0, url + "=" + symbol);
+                    //'/Summary?symbol='
+                    window.history.pushState({}, 0, '/Summary?symbol=' + symbol);
                     // split the data set into ohlc and volume
 
                     var ohlc = [],
