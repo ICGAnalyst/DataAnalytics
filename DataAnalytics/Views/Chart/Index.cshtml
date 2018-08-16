@@ -9,10 +9,11 @@ Layout = "~/Views/Shared/_Layout.cshtml";
 </div>
 <div class="show-chart-box">
 <div class="show-chart-box-c" style="width:970px;padding: 10px">
-    @*删除控件位置*@
-    <div id="addeditem"></div>
-    <button class="apply" id="remove">Remove</button>
-    <button class="apply" id="add">Add</button>
+    <div id="addeditem" style="float: left"></div>
+    <div style="float: right">
+        <button class="apply" id="remove">Remove</button>
+        <button class="apply" id="add">Add</button>
+    </div>
 </div>
 <div id="container" style="height: 400px; min-width: 310px"></div>
 </div>
@@ -28,44 +29,38 @@ $(function() {
     @*'user strict';*@
     $(".tooplate_menu-ul li:eq(2) a").addClass("tooplate_menu-ul-li-active");
 
-    var symbol = getQueryString("symbol");
-    if (symbol == null || symbol == "") {
-        symbol = "C";
-    } else {
-        symbol = symbol.toUpperCase();
-    }
-    $(".stock-Infro").html("Symbol: " + symbol);
 
-    function getQueryString(name) {
-        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-        var r = window.location.search.substr(1).match(reg);
-        if (r != null) return unescape(r[2]); return null;
-    }
 
     $("#add").on("click", function(event) {
         var symbolKey = $("#searchsymbol").val();
         if (symbolKey != null && symbolKey != ""){
-            console.log("add: " + symbolKey);
-            console.log(symbolKey);
-            names.push(symbolKey);
-            console.log("add len: " + names);
-            redawChart(names);
+            if ($.inArray(symbolKey, names) != -1) {
+                alert("have added!");
+            } else {
+                //console.log("add len: " + names);
+                $("#searchsymbol").val("");
+                redawChart(symbolKey); 
+            }
         }
     });
 
-        $("#remove").on("click", function(event) {
-            names.pop();
-            seriesCounter--;
-            seriesOptions.pop();
-            console.log(seriesOptions);
-            createChart();
-        });
+    $("#remove").on("click", function(event) {
+        names.pop();
+        labels.pop();
+        seriesCounter--;
+        seriesOptions.pop();
+        //console.log(seriesOptions);
+        //$("#addeditem").remove($("#addeditem label:last-child"));
+        $("#addeditem label:last-child").remove();
+        createChart();
+    });
 
     //stock chart
     var seriesOptions = [],
         seriesCounter = 0,
         //names = ['MSFT'],
-        names = [];
+        names = [],
+        labels = [];
 
     // create the chart when all data is loaded
     var createChart = function () {
@@ -98,48 +93,47 @@ $(function() {
         });
     };
 
-var redawChart = function(names) {
-    console.log('redraw');
-    $.each(names, function (i, name) {
+    var redawChart = function(name) {
+        console.log('redraw');
         //var name = names[names.length - 1];
-        console.log("symbol = " + name);
         $.ajax({
             url: "/Summary/GetSummaryData",
             type: "POST",
             dataType: 'json',
             data: { symbol: name },
             success: function (response) {
-                if (response.code == '1') {
+                if (response.code == '1' && response.len > 0) {
                     var data = new Array();
                     for (var count = 0; count < response.len; count++) {
                         var item = response.data[count];
                         data.push([item.DateTime, item.Close]);
                     }
-                    //console.log(data);
-                    //console.log("i = " + i);
-                    //seriesOptions.push({
-                    //    name: name,
-                    //    data: data
-                    //});
-                    console.log("seriesCounter = " + seriesCounter);
-                    seriesOptions[i] = {
+                    seriesOptions.push({
                         name: name,
                         data: data
-                    };
-                    console.log("seriesOptions:", seriesOptions);
+                    });
+                    //console.log("seriesOptions:", seriesOptions);
                     seriesCounter++;
-                    //console.log("seriesCounter = " + seriesCounter);
-                    //console.log("names.length = " + names.length);
+
+                    names.push(name);
+                    labels.push(name);
+                    $("#addeditem").append("<label>" + name + "</label>&nbsp&nbsp");
+                    //if (i + 1 == names.length){
+                    //    var str = "";
+                    //    console.log("names = " + names);
+                    //    for(var n = 0; n < names.length; n++){
+                    //        str += "<label>" + names[n] + "</label>&nbsp&nbsp";
+                    //    }
+                    //    $("#addeditem").html(str);
+                    //}
                     createChart();
                 } else {
-                    alert("Unknown error")
+                    alert("Unknown error");
                 }
             }
-        })
-    });
-};
-
-//redawChart(names);
+        });
+    
+    };
 
 })
 </script>

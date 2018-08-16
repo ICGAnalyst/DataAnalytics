@@ -40,6 +40,7 @@ namespace DataAnalytics.Controllers
                 };
                 return Json(jsonObject);
             }
+
         }
 
         [HttpPost]
