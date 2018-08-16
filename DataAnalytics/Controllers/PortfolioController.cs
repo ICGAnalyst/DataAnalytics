@@ -10,10 +10,10 @@ namespace DataAnalytics.Controllers
     public class PortfolioController : Controller
     {
         // GET: Portfolio
-        //public ActionResult Index()
-        //{
-        //    return View();
-        //}
+        public ActionResult Index()
+        {
+            return View();
+        }
         [HttpPost]
         public ActionResult SavePortfolio(string username, string symbolId)
         {
@@ -44,11 +44,12 @@ namespace DataAnalytics.Controllers
         }
 
         [HttpPost]
-        public ActionResult GetPortfolio(int userid)
+        public ActionResult GetPortfolio(string username)
         {
             Dictionary<int, List<Symbol>> portfolios = new Dictionary<int, List<Symbol>>();
             try
             {
+                int userid = new UserBusiness().FindUserId(username);
                 portfolios = new PortfolioBusiness().GetPortfolio(userid);
                 var jsonObject = new
                 {

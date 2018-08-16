@@ -60,6 +60,7 @@
                 <a class="hiddenanchor" id="tologin"></a>
                 <div id="wrapper">
                     <div id="login" class="animate form">
+                        <h5 class="notice" style="display: none;color:red"></h5>
                         <div>
                             <h1>log up</h1>
                             <p>
@@ -91,6 +92,16 @@
                 var password = $("#password").val();
                 getSignInData(username, password);
             });
+            $("input[type='submit']").click(function () {
+                var nameVal = $("#username").val();
+                var passVal = $("password").val();
+                if (nameVal == "" || nameVal == null) {
+                    $(".notice").css("display", "block").append("<span>" + "Please input your name!" + "</span>");
+                } else if (passVal == "" || passVal == null) {
+                    $(".notice").css("display", "block").append("<span>" + "Please input your password!" + "</span>");
+                } else {
+                    getSignInData(username, password);
+                }
             function getSignInData(username, password) {
                 $.ajax({
                     url: "/User/Register",

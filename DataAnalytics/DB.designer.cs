@@ -164,6 +164,13 @@ namespace DataAnalytics
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), fromDate, toDate);
 			return ((ISingleResult<usp_getwatchlistsResult>)(result.ReturnValue));
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.usp_getsymbolsbyportfolio")]
+		public ISingleResult<usp_getsymbolsbyportfolioResult> usp_getsymbolsbyportfolio([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> pid)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), pid);
+			return ((ISingleResult<usp_getsymbolsbyportfolioResult>)(result.ReturnValue));
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.AggsByHour")]
@@ -2098,6 +2105,50 @@ namespace DataAnalytics
 				if ((this._dividends != value))
 				{
 					this._dividends = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_symbol", DbType="VarChar(99)")]
+		public string symbol
+		{
+			get
+			{
+				return this._symbol;
+			}
+			set
+			{
+				if ((this._symbol != value))
+				{
+					this._symbol = value;
+				}
+			}
+		}
+	}
+	
+	public partial class usp_getsymbolsbyportfolioResult
+	{
+		
+		private int _symbolID;
+		
+		private string _symbol;
+		
+		public usp_getsymbolsbyportfolioResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_symbolID", DbType="Int NOT NULL")]
+		public int symbolID
+		{
+			get
+			{
+				return this._symbolID;
+			}
+			set
+			{
+				if ((this._symbolID != value))
+				{
+					this._symbolID = value;
 				}
 			}
 		}

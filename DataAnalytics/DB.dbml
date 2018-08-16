@@ -114,4 +114,11 @@
       <Column Name="symbol" Type="System.String" DbType="VarChar(99)" CanBeNull="true" />
     </ElementType>
   </Function>
+  <Function Name="dbo.usp_getsymbolsbyportfolio" Method="usp_getsymbolsbyportfolio">
+    <Parameter Name="pid" Type="System.Int32" DbType="Int" />
+    <ElementType Name="usp_getsymbolsbyportfolioResult">
+      <Column Name="symbolID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="symbol" Type="System.String" DbType="VarChar(99)" CanBeNull="true" />
+    </ElementType>
+  </Function>
 </Database>

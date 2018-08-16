@@ -2,18 +2,8 @@
 ViewBag.Title = "Chart";
 Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<style>
-.show-chart-box-c button {
-margin-right: 20px;
-padding-bottom: 5px;
-padding-top: 5px;
-float: right;
-width: 70px;
-height: 35px;
-background: #52aec6 url(/Images/menu_a.gif) repeat-x center;
-color: #fff;
-}
-</style>
+
+
 <div class="show-box" style="width:100%;">
 <div class="show-box-c">
 </div>
@@ -34,7 +24,7 @@ color: #fff;
 <script>
 $(function() {
     @*'user strict';*@
-
+    $(".tooplate_menu-ul li:eq(2) a").addClass("tooplate_menu-ul-li-active");
     $("#add").on("click", function(event) {
         var symbolKey = $("#searchsymbol").val();
         if (symbolKey != null && symbolKey != ""){

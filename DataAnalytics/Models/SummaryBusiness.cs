@@ -17,6 +17,7 @@ namespace DataAnalytics.Models
                                  join s in db.symbols
                                  on a.symbolID equals s.symbolID
                                  where s.symbol == symbol
+                                 orderby  a.Date, a.Time
                                  select new { a.Date, a.Time, a.Open, a.High, a.Low, a.Close, a.Volume }).ToList();
                 foreach (var item in resultSet)
                 {

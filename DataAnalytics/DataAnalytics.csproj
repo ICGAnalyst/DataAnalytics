@@ -186,6 +186,7 @@
     <Content Include="Content\css\animate-custom.css" />
     <Content Include="Content\css\demo.css" />
     <Content Include="Content\css\style.css" />
+    <Content Include="Content\datatables.min.css" />
     <Content Include="Content\jquery.lightbox-0.5.css" />
     <Content Include="Content\layoutstyle.css" />
     <Content Include="Content\tooplate_style.css" />
@@ -198,6 +199,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\bg_pic.png" />
     <Content Include="Images\tooplate_header.jpg" />
     <Content Include="Images\logo.png" />
     <Content Include="Images\menu_a.gif" />
@@ -270,10 +272,10 @@
       <BrowseToURL>~/User/Login</BrowseToURL>
     </Content>
     <Content Include="Views\User\Register.cshtml" />
+    <Content Include="Views\Portfolio\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Portfolio\" />
     <Folder Include="Views\SearchSymbol\" />
   </ItemGroup>
   <ItemGroup>

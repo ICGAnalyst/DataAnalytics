@@ -49,16 +49,12 @@ namespace DataAnalytics.Models
                            where s.UserId == userid
                            select s.PId).ToList();
 
-                if (pids == null || pids.Count() == 0)
+                if (pids != null && pids.Count() > 0)
                 {
                     foreach (var pid in pids)
                     {
                         List<Symbol> symbols = new List<Symbol>();
-                        var res = (from r in db.Relation
-                                   join s in db.symbols
-                                   on new { pid = r.PId, symbol = r.symbolID }
-                                   equals new { pid = pid, symbol = s.symbolID }
-                                   select new { s.symbolID, s.symbol }).ToList();
+                        var res = db.usp_getsymbolsbyportfolio(pid).ToList();
                         if (res == null || res.Count() == 0)
                         {
                             foreach (var item in res)

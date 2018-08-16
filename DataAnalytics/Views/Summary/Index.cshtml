@@ -22,6 +22,7 @@
     $(function () {
         'user strict';
         // get the symbol in the url
+        $(".tooplate_menu-ul li:eq(1) a").addClass("tooplate_menu-ul-li-active");
         var symbol = getQueryString("symbol");
         if (symbol == null || symbol == "") {
             symbol = "C";
