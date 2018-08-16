@@ -110,7 +110,10 @@ $(function() {
                     }
                     seriesOptions.push({
                         name: name,
-                        data: data
+                        data: data,
+                        _colorIndex: names.length,
+                        _symbolIndex: names.length
+
                     });
                     //console.log("seriesOptions:", seriesOptions);
                     seriesCounter++;
@@ -126,6 +129,7 @@ $(function() {
                     //    }
                     //    $("#addeditem").html(str);
                     //}
+                    console.log(seriesOptions);
                     createChart();
                 } else {
                     alert("Unknown error");
