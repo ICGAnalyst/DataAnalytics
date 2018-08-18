@@ -58,22 +58,22 @@
             'user strict';
             $(".tooplate_menu-ul li:eq(0) a").addClass("tooplate_menu-ul-li-active");
         
-            $.ajax({
-                url: "/SearchSymbol/GetSearchSymbol",
-                type: "POST",
-                data: {
-                    searchKey: ""
-                },
-                dataType: "json",
-                crossDomain: true,
-                success: function (response) {
-                    if (response.len == 0) {
-                        return;
-                    } else {
-                        $("#searchsymbol").typeahead({ source: response.data });
-                    }
-                }
-            });
+            //$.ajax({
+            //    url: "/SearchSymbol/GetSearchSymbol",
+            //    type: "POST",
+            //    data: {
+            //        searchKey: ""
+            //    },
+            //    dataType: "json",
+            //    crossDomain: true,
+            //    success: function (response) {
+            //        if (response.len == 0) {
+            //            return;
+            //        } else {
+            //            $("#searchsymbol").typeahead({ source: response.data });
+            //        }
+            //    }
+            //});
 
 
             $("#from").datepicker({
@@ -109,13 +109,23 @@
 
             //});
 
-            $("#search").on("click", function (event) {
-                window.location.href = '/Summary?symbol=' + $("#searchsymbol").val();
-            });
+        $("#search").on("click", function (event) {
+            var symbol = $("#searchsymbol").val();
+            if (symbol == null || symbol == "") {
+                return;
+            }
+            window.location.href = '/Summary?symbol=' + symbol;
+        });
 
             $("button.apply").on("click", function (event) {
                 var fromDate = $("#from").val().replace(/-/g, "");
                 var toDate = $("#to").val().replace(/-/g, "");
+                if (fromDate == null || fromDate == "") {
+                    fromDate = 20160104; //The min date
+                }
+                if (toDate == null || toDate == "") {
+                    toDate = 20160324; //The max date
+                }
                 //console.log(fromDate);
                 //console.log(toDate);
                 getWatchList(fromDate, toDate);
@@ -158,6 +168,8 @@
 
                     }
                 });
-            };
+        };
+
+        getWatchList(20160104, 20160324);
         })</script>
 }

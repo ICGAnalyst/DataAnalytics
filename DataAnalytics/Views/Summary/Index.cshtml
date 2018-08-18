@@ -32,22 +32,22 @@
         $(".stock-Infro").html("Symbol: " + symbol);
 
 
-        $.ajax({
-            url: "/SearchSymbol/GetSearchSymbol",
-            type: "POST",
-            data: {
-                searchKey: ""
-            },
-            dataType: "json",
-            crossDomain: true,
-            success: function (response) {
-                if (response.len == 0) {
-                    return;
-                } else {
-                    $("#searchsymbol").typeahead({ source: response.data });
-                }
-            }
-        });
+        //$.ajax({
+        //    url: "/SearchSymbol/GetSearchSymbol",
+        //    type: "POST",
+        //    data: {
+        //        searchKey: ""
+        //    },
+        //    dataType: "json",
+        //    crossDomain: true,
+        //    success: function (response) {
+        //        if (response.len == 0) {
+        //            return;
+        //        } else {
+        //            $("#searchsymbol").typeahead({ source: response.data });
+        //        }
+        //    }
+        //});
 
         getSummaryData(symbol.toLowerCase())
 
@@ -194,6 +194,9 @@
         $("#search").on("click", function (event) {
             //var symbolKey = $("#searchsymbol").val();
             symbol = $("#searchsymbol").val();
+            if (symbol == null || symbol == "") {
+                return;
+            }
             getSummaryData(symbol.toLowerCase());
         });
 

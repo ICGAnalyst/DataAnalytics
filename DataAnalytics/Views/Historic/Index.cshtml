@@ -170,6 +170,9 @@
                 var symbolKey = $("#searchsymbol").val();
                 var fromDate = 20160104; //The min date
                 var toDate = 20160324; // The Max date
+                if (symbolKey == null || symbolKey == "") {
+                    return;
+                }
                 var hData2 = getHistoryData(symbolKey, fromDate, toDate);
                 if (hData2 == null || hData2 == "") {
                     return;
@@ -183,6 +186,15 @@
                 var symbolKey = $("#searchsymbol").val();
                 var fromDate = $("#from").val().replace(/-/g, "");
                 var toDate = $("#to").val().replace(/-/g, "");
+                if (symbolKey == null || symbolKey == "") {
+                    symbolKey = "c"; 
+                }
+                if (fromDate == null || fromDate == "") {
+                    fromDate = 20160104; //The min date
+                }
+                if (toDate == null || toDate == "") {
+                    toDate = 20160324; //The max date
+                }
                 //console.log(fromDate);
                 //console.log(toDate);
                 getHistoryData(symbolKey, fromDate, toDate);
@@ -219,6 +231,7 @@
                     success: function (response) {
                         //response = response[0];
                         if (response.success == '1') {
+                            $(".stock-Infro").html("Symbol: " + symbolKey.toUpperCase());
                             // 先清空表格
                             table.clear().draw();
                             //showHistoryData(response.data);
